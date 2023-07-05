@@ -3,7 +3,7 @@ module.exports = defineConfig({
   devServer: {
     port: '3000'
   },
-  publicPath: '/webtech_frontend/',
+  publicPath: '/Webtech_Frontend/',
 
   transpileDependencies: true
 })
