@@ -28,8 +28,8 @@ jobs:
           cd dist
           ln -s index.html 404.html
           git init
-          git config --global user.email "ci@example.com"
-          git config --global user.name "CI"
+          git config --global user.email "aegidius.haslauer@gmail.com"
+          git config --global user.name "Aegid1"
           git add -A
           git commit -m "Deploy"
           git push -f https://github.com/Aegid1/Webtech_Frontend.git master:gh-pages
