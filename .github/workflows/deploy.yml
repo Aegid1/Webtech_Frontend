@@ -24,6 +24,10 @@ jobs:
           npm run build
 
       - name: Prepare Deployment
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Prepare Deployment
         run: |
           git config --global user.email "Aegidius.Haslauer@Student.HTW-Berlin.de"
           git config --global user.name "Aegidius"
@@ -32,5 +36,5 @@ jobs:
           git init
           git add -A
           git commit -m "Deploy"
-          git push -f https://github.com/Aegid1/Webtech_Frontend master:gh-pages
+          git push -f https://Aegid1:${{ env.TOKEN }}@github.com/Aegid1/Webtech_Frontend.git master:gh-pages
 
