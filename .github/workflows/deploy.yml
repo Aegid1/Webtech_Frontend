@@ -32,5 +32,5 @@ jobs:
           git init
           git add -A
           git commit -m "Deploy"
-          git push -f origin master:gh-pages
+          git push -f https://github.com/Aegid1/Webtech_Frontend master:gh-pages
 
