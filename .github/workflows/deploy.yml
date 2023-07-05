@@ -25,8 +25,8 @@ jobs:
 
       - name: Prepare Deployment
         run: |
-          git config --global user.email "aegidius.haslauer@gmail.com"
-          git config --global user.name "Aegid1"
+          git config --global user.email "Aegidius.Haslauer@Student.HTW-Berlin.de"
+          git config --global user.name "Aegidius"
           cd dist
           ln -s index.html 404.html
           git init
