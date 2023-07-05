@@ -33,7 +33,7 @@ jobs:
           
       #Installs all dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       # Runs a set of commands using the runners shell
       - name: Run all tests
