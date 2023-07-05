@@ -208,4 +208,7 @@ export default {
     padding-left: 20px;
     padding-bottom: 30px;
   }
+  /*
+  lo
+   */
   </style>
