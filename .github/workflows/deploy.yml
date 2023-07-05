@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.10.0
+
+      - name: Install Dependencies and Build Vue
+        run: |
+          npm install --force
+          npm run build
+
+      - name: Prepare Deployment
+        run: |
+          cd dist
+          ln -s index.html 404.html
+          git init
+          git config --global user.email "ci@example.com"
+          git config --global user.name "CI"
+          git add -A
+          git commit -m "Deploy"
+          git push -f https://github.com/Aegid1/Webtech_Frontend.git master:gh-pages
