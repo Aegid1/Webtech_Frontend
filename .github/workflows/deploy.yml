@@ -23,11 +23,9 @@ jobs:
           npm install --force
           npm run build
 
-      - name: Prepare Deployment
+      - name: Deployment
         env:
           TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Deployment
         run: |
           git config --global user.email "Aegidius.Haslauer@Student.HTW-Berlin.de"
           git config --global user.name "Aegidius"
