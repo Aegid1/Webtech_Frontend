@@ -27,7 +27,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
 
-      - name: Prepare Deployment
+      - name: Deployment
         run: |
           git config --global user.email "Aegidius.Haslauer@Student.HTW-Berlin.de"
           git config --global user.name "Aegidius"
