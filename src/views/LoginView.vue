@@ -27,12 +27,12 @@
               <button type="submit" class="LoginButton"><b>Login</b></button>
               <br>
               <br>
-              <a @click="navigateToRegistrationView()">Noch keinen Account? <b>Registrieren</b></a>
+              <a @click="navigateToRegistrationView">Noch keinen Account? <b>Registrieren</b></a>
             </div>
           </div>
         </form>
         <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
-        <button @click="toggleDarkMode">Toggle Dark Mode</button> <!-- New button -->
+        <button @click="toggleDarkMode">Toggle Dark Mode</button>
       </div>
       <div class="thirdDiv"></div>
     </div>
@@ -76,7 +76,7 @@ export default {
           console.log(data)
           // Beispiel: Weiterleitung zur Home-Ansicht, wenn der Login erfolgreich war
           if (data.token !== undefined) {
-            this.navigateToHomeView()
+            this.navigateToHomeView(data.token)
           } else {
             alert('Login fehlgeschlagen')
           }
@@ -91,28 +91,24 @@ export default {
         isDarkMode: false
       }
     },
+    navigateToRegistrationView () {
+      this.$router.push('/registration')
+    },
+    navigateToHomeView (token) {
+      this.$router.push('/home/' + token)
+    },
+    toggleDarkMode () {
+      this.isDarkMode = !this.isDarkMode
+      localStorage.setItem('darkMode', this.isDarkMode.toString())
+      document.body.classList.toggle('dark-mode')
+    }
 
-    methods: {
-      login (event) {
-        event.preventDefault()
-        // Restlicher Code für den Login
-      },
-      navigateToHomeView () {
-        this.$router.push('/')
-      },
-      toggleDarkMode () {
-        this.isDarkMode = !this.isDarkMode
-        localStorage.setItem('darkMode', this.isDarkMode.toString())
-        document.body.classList.toggle('dark-mode')
-      },
-
-      mounted () {
-        const darkMode = localStorage.getItem('darkMode')
-        if (darkMode === 'true') {
-          this.isDarkMode = true
-          document.body.classList.add('dark-mode')
-        }
-      }
+  },
+  mounted () {
+    const darkMode = localStorage.getItem('darkMode')
+    if (darkMode === 'true') {
+      this.isDarkMode = true
+      document.body.classList.add('dark-mode')
     }
   }
 }
@@ -160,9 +156,6 @@ export default {
 
   .form-check-input{
     background-color: #2c3e50;
-  }
-
-  .Form-titles{
   }
 
   .loginForm{
