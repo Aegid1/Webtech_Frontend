@@ -180,8 +180,8 @@ export default {
     }
   },
   mounted () {
-    const todolistId = this.$route.params.id
-    this.loadTasks(todolistId)
+    // const todolistId = this.$route.params.id
+    // this.loadTasks(todolistId)
   }
 
 }

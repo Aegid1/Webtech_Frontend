@@ -82,8 +82,8 @@ export default {
 
   },
   mounted () {
-    const userId = this.$route.params.id
-    this.loadScores(userId)
+    // const userId = this.$route.params.id
+    // this.loadScores(userId)
   }
 
 }
