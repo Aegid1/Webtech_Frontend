@@ -6,24 +6,24 @@
         <div>
           <div class = "profile-picture">
             <div class = "circle button">
-              <i class="fa fa-upload fa-2x"></i>
+              <i></i>
             </div>
           </div>
 
           <div class="profile-button button button::before button:hover::before button:hover button:active">
-            <i class="fa fa-user icons-left-side"></i>
+            <i class="icons-left-side"></i>
             Profile
           </div>
         </div>
         <div>
 
           <div class="settings-button button button::before button:hover::before button:hover button:active">
-            <i class="fa fa-cog icons-left-side"></i>
+            <i class="icons-left-side"></i>
             Settings
           </div>
 
           <div class="logout-button button button::before button:hover::before button:hover button:active" @click="navigateToLogin()">
-            <i class="gg-log-out icons-left-side" style="margin-right: 18%;"></i>
+            <i class="icons-left-side" style="margin-right: 18%;"></i>
             Logout
           </div>
         </div>
@@ -41,9 +41,9 @@
           <tr v-for="todo in todolist" :key ="todo.id" class = TODOS>
             <td class = "TODO_name"> {{ todo.name ? todo.name : ' ' }} </td>
             <td class = "TODO_deadline"> {{ todo.date ? todo.date : ' ' }} </td>
-            <td> <i class="fas fa-edit fa-lg edit-button edit-button i"></i> </td>
-            <td> <i class="fas fa-trash fa-lg edit-button edit-button i" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
-            <td> <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i> </td>
+            <td> <i class="edit-button edit-button i"></i> </td>
+            <td> <i class="edit-button edit-button i" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
+            <td> <i class="edit-button edit-button i"></i> </td>
           </tr>
         </table>
         <table v-else id='todoTable'>
@@ -55,7 +55,7 @@
         <div class = TODO_input>
           <input v-model="todoName" type = "text" class = "input" placeholder="To-do">
           <input v-model="todoDate" class = "input" placeholder="Date">
-          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button" @click = "addTask"></i>
+          <i class="edit-button edit-button i todo_add_button" @click = "addTask"></i>
         </div>
       </div>
     </div>
@@ -119,9 +119,9 @@ export default {
           tr.classList.add('TODO')
           tdName.classList.add('TODO_name')
           tdDate.classList.add('TODO_deadline')
-          editIcon.classList.add('fas', 'fa-edit', 'fa-lg', 'edit-button', 'i')
-          trashIcon.classList.add('fas', 'fa-trash', 'fa-lg', 'edit-button', 'i')
-          checkIcon.classList.add('fa', 'fa-check-circle', 'fa-lg', 'edit-button', 'i')
+          editIcon.classList.add('edit-button', 'i')
+          trashIcon.classList.add('edit-button', 'i')
+          checkIcon.classList.add('edit-button', 'i')
           // adds the created elements to the tr element
           tr.appendChild(tdName)
           tr.appendChild(tdDate)
