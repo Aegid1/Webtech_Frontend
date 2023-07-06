@@ -80,6 +80,7 @@ export default {
           if (data.token !== undefined) {
             this.convertTokenToId(data.token)
               .then(id => {
+                console.log(id)
                 this.navigateToHomeView(id)
               })
               .catch(error => {
@@ -115,6 +116,8 @@ export default {
         console.log(decodedToken)
         const email = decodedToken.email
         const response = await this.getUserIdByEmail(email)
+        console.log(response)
+        console.log(response.Id)
         return response.Id
       } catch (error) {
         console.log('Error', error)
