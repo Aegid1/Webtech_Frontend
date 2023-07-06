@@ -104,16 +104,16 @@ export default {
       this.$router.push({ name: 'home', params: { id } })
     },
 
-    convertTokenToId (token) {
-      const decodedToken = jwt_decode(token)
-      console.log(decodedToken)
-      const email = decodedToken.email
-
-      return this.getUserIdByEmail(email)
-        .then(response => response.id)
-        .catch(error => {
-          console.log('Error', error)
-        })
+    async convertTokenToId (token) {
+      try {
+        const decodedToken = jwt_decode(token)
+        console.log(decodedToken)
+        const email = decodedToken.email
+        const response = await this.getUserIdByEmail(email)
+        return response.id
+      } catch (error) {
+        console.log('Error', error)
+      }
     },
 
     getUserIdByEmail (email) {
