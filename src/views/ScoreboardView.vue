@@ -61,6 +61,9 @@ export default {
       const endpoint = 'http://localhost:8080/getGroup/' + userId
       const requestOptions = {
         method: 'GET',
+        headers: {
+          Origin: 'https://aegid1.github.io'
+        },
         redirect: 'follow'
       }
 

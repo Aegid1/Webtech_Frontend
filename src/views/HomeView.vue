@@ -144,6 +144,9 @@ export default {
       const endpoint = 'http://localhost:8080/alltodos/' + todolistid
       const requestOptions = {
         method: 'GET',
+        headers: {
+          Origin: 'https://aegid1.github.io'
+        },
         redirect: 'follow'
       }
 
@@ -165,6 +168,9 @@ export default {
       const endpoint = 'http://localhost:8080/delete/' + todoId
       const requestOptions = {
         method: 'DELETE',
+        headers: {
+          Origin: 'https://aegid1.github.io'
+        },
         redirect: 'follow'
       }
 
