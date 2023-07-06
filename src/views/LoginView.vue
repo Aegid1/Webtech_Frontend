@@ -40,6 +40,8 @@
 </template>
 
 <script>
+// eslint-disable-next-line camelcase
+import jwt_decode from 'jwt-decode'
 export default {
   name: 'LoginView',
 
@@ -86,17 +88,47 @@ export default {
           console.error('Fehler:', error)
         })
     },
+
     data () {
       return {
         isDarkMode: false
       }
     },
+
     navigateToRegistrationView () {
       this.$router.push('/registration')
     },
+
     navigateToHomeView (token) {
       this.$router.push('/home/' + token)
     },
+
+    convertTokenToId (token) {
+      const decodedToken = jwt_decode(token)
+
+      const email = decodedToken.email
+      const userId = this.getUserIdByEmail(email)
+
+      return userId
+    },
+
+    getUserIdByEmail (email) {
+      const endpoint = 'http://localhost:8080/userEmail/' + email
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+
+      return fetch(endpoint, requestOptions)
+        .then(response => response.json())
+        .then(result => result)
+        .catch(error => {
+          console.log('the email doesnt exist', error)
+          alert('the email doesnt exist')
+        }
+        )
+    },
+
     toggleDarkMode () {
       this.isDarkMode = !this.isDarkMode
       localStorage.setItem('darkMode', this.isDarkMode.toString())

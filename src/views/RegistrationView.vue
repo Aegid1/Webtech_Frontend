@@ -35,7 +35,7 @@
                 <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
                 <br>
                 <br>
-                <a href="http://localhost:3000/login">Schon einen Account? <b>Zum Login</b></a>
+                <a @click="navigateToLoginView">Schon einen Account? <b>Zum Login</b></a>
               </div>
             </div>
           </form>
@@ -50,6 +50,11 @@ export default {
   name: 'RegistrationView',
 
   methods: {
+
+    navigateToLoginView () {
+      this.$router.push('/')
+    },
+
     addUser () {
     // Benutzerdaten aus den Eingabefeldern abrufen
       const email = document.getElementById('exampleInputEmail1').value
@@ -93,6 +98,7 @@ export default {
             // Die Benutzerregistrierung war erfolgreich
             // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
             console.log('Benutzer wurde erfolgreich erstellt')
+            this.navigateToLoginView()
           } else {
             // Die Benutzerregistrierung ist fehlgeschlagen
             // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
