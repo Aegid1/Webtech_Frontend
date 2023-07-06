@@ -114,7 +114,7 @@ export default {
       try {
         const decodedToken = jwt_decode(token)
         console.log(decodedToken)
-        const email = decodedToken.email
+        const email = decodedToken.sub
         const response = await this.getUserIdByEmail(email)
         console.log(response)
         console.log(response.Id)
