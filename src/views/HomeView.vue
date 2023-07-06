@@ -136,8 +136,8 @@ export default {
           console.log(error)
         })
     },
-    loadTasks (todolistid) {
-      const endpoint = 'http://localhost:8080/alltodos/' + todolistid
+    loadTasks (userId) {
+      const endpoint = 'http://localhost:8080/alltodos/' + userId
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -180,8 +180,8 @@ export default {
     }
   },
   mounted () {
-    // const todolistId = this.$route.params.id
-    // this.loadTasks(todolistId)
+    const userId = this.$route.params.id
+    this.loadTasks(userId)
   }
 
 }
