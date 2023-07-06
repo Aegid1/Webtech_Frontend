@@ -57,8 +57,8 @@ export default {
 
   methods: {
 
-    loadScores (groupId) {
-      const endpoint = 'http://localhost:8080/getGroup/' + groupId
+    loadScores (userId) {
+      const endpoint = 'http://localhost:8080/getGroup/' + userId
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -84,8 +84,8 @@ export default {
 
   },
   mounted () {
-  // const groupId = this.$route.params.id
-    this.loadScores(1)
+    const userId = this.$route.params.id
+    this.loadScores(userId)
   }
 
 }

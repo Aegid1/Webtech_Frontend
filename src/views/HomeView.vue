@@ -77,7 +77,7 @@ import ScoreboardView from './ScoreboardView.vue'
 export default {
   name: 'HomeView',
   components: { ScoreboardView },
-
+  props: ['id'],
   // nicht sicher ob todoList hier eine Liste oder nicht ein Objekt ist
   data () {
     return {
@@ -91,7 +91,7 @@ export default {
   methods: {
 
     navigateToLogin () {
-      this.$router.push('/login')
+      this.$router.push('/')
     },
 
     addTask () {

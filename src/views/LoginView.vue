@@ -101,16 +101,19 @@ export default {
 
     navigateToHomeView (token) {
       const id = this.convertTokenToId(token)
-      this.$router.push('/home/' + id)
+      this.$router.push({ name: 'home', params: { id } })
     },
 
     convertTokenToId (token) {
       const decodedToken = jwt_decode(token)
-
+      console.log(decodedToken)
       const email = decodedToken.email
-      const userId = this.getUserIdByEmail(email)
 
-      return userId
+      return this.getUserIdByEmail(email)
+        .then(response => response.id)
+        .catch(error => {
+          console.log('Error', error)
+        })
     },
 
     getUserIdByEmail (email) {

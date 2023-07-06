@@ -5,9 +5,10 @@ import RegistrationView from '../views/RegistrationView.vue'
 
 const routes = [
   {
-    path: '/home',
+    path: '/home/:id',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    props: true
   },
   {
     path: '/',
