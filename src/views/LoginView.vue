@@ -100,7 +100,8 @@ export default {
     },
 
     navigateToHomeView (token) {
-      this.$router.push('/home/' + token)
+      const id = this.convertTokenToId(token)
+      this.$router.push('/home/' + id)
     },
 
     convertTokenToId (token) {
