@@ -78,7 +78,13 @@ export default {
           console.log(data)
           // Beispiel: Weiterleitung zur Home-Ansicht, wenn der Login erfolgreich war
           if (data.token !== undefined) {
-            this.navigateToHomeView(data.token)
+            this.convertTokenToId(data.token)
+              .then(id => {
+                this.navigateToHomeView(id)
+              })
+              .catch(error => {
+                console.log('error', error)
+              })
           } else {
             alert('Login fehlgeschlagen')
           }
@@ -99,8 +105,7 @@ export default {
       this.$router.push('/registration')
     },
 
-    navigateToHomeView (token) {
-      const id = this.convertTokenToId(token)
+    navigateToHomeView (id) {
       this.$router.push({ name: 'home', params: { id } })
     },
 
@@ -110,7 +115,7 @@ export default {
         console.log(decodedToken)
         const email = decodedToken.email
         const response = await this.getUserIdByEmail(email)
-        return response.id
+        return response.Id
       } catch (error) {
         console.log('Error', error)
       }
