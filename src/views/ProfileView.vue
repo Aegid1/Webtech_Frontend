@@ -14,7 +14,7 @@
                       </h1>
                       <div class="home_blob grid">
                         <div clas="div.home_perfil">
-                          <img src="assets/img/Lichtbild-Mohamed_Moussa.png" alt="home perfil">
+                          <img src="/Users/mohamedmoussa/Desktop/Universität /3. Semester/Webtechnologie /Webtech_Frontend/Lichtbild-Mohamed_Moussa.png" alt="Foto nicht findbar">
                         </div>
                         <!-- <img src="assets/img/shape-wawes.svg" alt="" class="home__shape-wawes"> -->
                         <!-- <img src="assets/img/shape-circle.svg" alt="" class="home__shape-circle"> -->
@@ -108,6 +108,7 @@ export default {
 .WrapperLoginForm {
   background-color: #20c9c1;
   padding-top: 30px;
+  padding-bottom: 30px;
   border-radius: 30px 30px 30px 30px;
 }
 
