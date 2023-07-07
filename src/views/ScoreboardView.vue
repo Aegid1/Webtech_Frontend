@@ -4,7 +4,7 @@
       <h1 class = "title"> Scoreboard </h1>
       <div class = "layout">
       <div class = ""> </div>
-      <table v-if="group && group.length > 0" id='group'>
+      <table v-if="group.length > 0" id='group'>
         <!-- Diese Zeile geht durch alle To-do's durch -->
         <tr v-for="user in group" :key ="user.id">
           <td> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
@@ -71,8 +71,11 @@ export default {
     calculateTotalScore () {
       this.totalScore = 0
 
+      console.log('this.group:', this.group)
+
       for (let i = 0; i < this.group.length; i++) {
         const user = this.group[i]
+        console.log('user.score:', user.score)
         this.totalScore += user.score
       }
     },

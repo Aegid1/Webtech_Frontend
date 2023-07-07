@@ -51,7 +51,7 @@
             <td class= "TODO_name"> test </td>
             <td class= "TODO_date"> 2002-12-03 </td>
             <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i> </td>
-            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px"></i> </td>
             <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
           </tr>
         </table>
