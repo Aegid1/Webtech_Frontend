@@ -12,7 +12,7 @@ const routes = [
     props: true
   },
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: LoginView
   },
@@ -27,7 +27,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/',
+    path: '/ProfileView',
     name: 'ProfileView',
     component: ProfileView
   }

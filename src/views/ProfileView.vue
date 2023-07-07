@@ -4,21 +4,61 @@
       <div class="firstDiv"></div>
       <div class="secondDiv">
         <form @submit.prevent="login">
-          <h1>Login into your Home</h1>
+          <h1>Hey There!</h1>
           <div class="WrapperLoginForm">
             <div class="loginForm">
                   <div class="home__container.container.grid.section__border.">
                     <div class="home__data grid">
                       <h1 class="home-title">
-                        Hi, I'm Aegid <br>
+                       I'm Aegid <br>
                       </h1>
                       <div class="home_blob grid">
                         <div clas="div.home_perfil">
-                          <img src="assets/img/prefil.png" alt="home perfil">
+                          <img src="assets/img/Lichtbild-Mohamed_Moussa.png" alt="home perfil">
                         </div>
-                        <img src="assets/img/shape-wawes.svg" alt="" class="home__shape-wawes">
-                        <img src="assets/img/shape-circle.svg" alt="" class="home__shape-circle">
+                        <!-- <img src="assets/img/shape-wawes.svg" alt="" class="home__shape-wawes"> -->
+                        <!-- <img src="assets/img/shape-circle.svg" alt="" class="home__shape-circle"> -->
                       </div>
+                      <ul class="home__social">
+                        <a href="#" target="blank" class="home__social-link">
+                        </a>
+                        <a href="#" target="blank" class="home__social-link">
+                        </a>
+                        <a href="#" target="blank" class="home__social-link">
+                        </a>
+                      </ul>
+                    </div>
+                    <!-- HOME INFO 1 -->
+                    <div class="home__info">
+                      <div>
+                        <h3 class="home__info">
+                          BIOGRAPHY
+                        </h3>
+                        <p class="home_infop_description">
+                          Hi, I am Aegid and passionate about IT
+                        </p>
+                      </div>
+                      <!-- HOME INFO 2 -->
+                      <div>
+                        <h3 class="home__info">
+                          FUN FACT
+                        </h3>
+                        <p class="home_infop_description">
+                          I have Fuzzles behind my ears
+                        </p>
+                      </div>
+                      <!-- HOME INFO 3 -->
+                      <div>
+                        <h3 class="home__info">
+                          CONTACT
+                        </h3>
+                        <p class="home_infop_description">
+                          Aegid Haslauer
+                          aegid@gmail.com
+                          +49 173 982 8892
+                        </p>
+                      </div>
+
                     </div>
                   </div>
             </div>
