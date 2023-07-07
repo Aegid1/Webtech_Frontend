@@ -67,8 +67,6 @@ export default {
         const result = (await response).json
         this.group = Array.from(result)
         this.totalScore = this.calculateTotalScore()
-
-          .catch(error => console.log('scores cant be loaded', error))
       } catch (error) {
         console.log('error', error)
       }
