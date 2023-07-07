@@ -63,7 +63,7 @@ export default {
       }
 
       try {
-        const response = fetch(endpoint, requestOptions)
+        const response = await fetch(endpoint, requestOptions)
         const result = await response.json()
         this.group = result
         this.totalScore = this.calculateTotalScore(this.group)

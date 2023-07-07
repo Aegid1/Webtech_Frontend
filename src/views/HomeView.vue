@@ -58,7 +58,7 @@
         <div class = TODO_input>
           <input v-model="todoName" type = "text" class = "input" placeholder="To-do">
           <input v-model="todoDate" class = "input" placeholder="Date">
-          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask"></i>
+          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask(todoName, todoDate)"></i>
         </div>
       </div>
     </div>
@@ -93,10 +93,10 @@ export default {
       this.$router.push('/')
     },
 
-    addTask () {
+    addTask (todoName, todoDeadline) {
       const data = {
-        todoName: this.todoName,
-        todoDeadline: this.todoDate
+        todoName: todoName,
+        todoDeadline: todoDeadline
       }
 
       const task = {
@@ -122,9 +122,9 @@ export default {
           tr.classList.add('TODO')
           tdName.classList.add('TODO_name')
           tdDate.classList.add('TODO_date')
-          editIcon.classList.add('edit-button', 'i')
-          trashIcon.classList.add('edit-button', 'i')
-          checkIcon.classList.add('edit-button', 'i')
+          editIcon.classList.add('edit-button', 'i', 'bi bi-pencil-square')
+          trashIcon.classList.add('edit-button', 'i', 'bi bi-trash3-fill')
+          checkIcon.classList.add('edit-button', 'i', 'bi bi-check-square-fill')
           // adds the created elements to the tr element
           tr.appendChild(tdName)
           tr.appendChild(tdDate)
