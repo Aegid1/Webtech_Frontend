@@ -64,7 +64,7 @@ export default {
 
       fetch(endpoint, requestOptions)
         .then(response => response.json())
-        .then(result => { this.group = result })
+        .then(result => { this.group = Array.from(result) })
         .catch(error => console.log('scores cant be loaded', error))
     },
 
