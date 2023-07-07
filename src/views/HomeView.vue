@@ -6,24 +6,24 @@
         <div>
           <div class = "profile-picture">
             <div class = "circle button">
-              <i></i>
+              <i class="bi bi-upload" style = "font-size: 180%;"></i>
             </div>
           </div>
 
           <div class="profile-button button button::before button:hover::before button:hover button:active">
-            <i class="icons-left-side"></i>
+            <i class="icons-left-side bi bi-person-fill"></i>
             Profile
           </div>
         </div>
         <div>
 
           <div class="settings-button button button::before button:hover::before button:hover button:active">
-            <i class="icons-left-side"></i>
+            <i class="icons-left-side bi bi-gear-fill"></i>
             Settings
           </div>
 
           <div class="logout-button button button::before button:hover::before button:hover button:active" @click="navigateToLogin()">
-            <i class="icons-left-side" style="margin-right: 18%;"></i>
+            <i class="icons-left-side bi bi-arrow-left-square-fill" style="margin-right: 10%; font-size: 85%;"></i>
             Logout
           </div>
         </div>
@@ -39,23 +39,26 @@
         <table v-if="todolist && todolist.length > 0" id='todoTable'>
           <!-- Diese Zeile geht durch alle To-do's durch -->
           <tr v-for="todo in todolist" :key ="todo.id" class = TODOS>
-            <td class = "TODO_name"> {{ todo.name ? todo.name : ' ' }} </td>
-            <td class = "TODO_deadline"> {{ todo.date ? todo.date : ' ' }} </td>
-            <td> <i class="edit-button edit-button i"></i> </td>
-            <td> <i class="edit-button edit-button i" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
-            <td> <i class="edit-button edit-button i"></i> </td>
+            <td class = "TODO_name"> {{ todo.title ? todo.title : ' ' }} </td>
+            <td class = "TODO_date"> {{ todo.date ? todo.date : ' ' }} </td>
+            <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i></td>
+            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
           </tr>
         </table>
         <table v-else id='todoTable'>
           <tr class = "TODOS">
-            <td class= "TODO_name"> </td>
-            <td class= "TODO_date"> </td>
+            <td class= "TODO_name"> test </td>
+            <td class= "TODO_date"> 2002-12-03 </td>
+            <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
           </tr>
         </table>
         <div class = TODO_input>
           <input v-model="todoName" type = "text" class = "input" placeholder="To-do">
           <input v-model="todoDate" class = "input" placeholder="Date">
-          <i class="edit-button edit-button i todo_add_button" @click = "addTask"></i>
+          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask"></i>
         </div>
       </div>
     </div>
@@ -118,7 +121,7 @@ export default {
           // defines the css classes for the created elements
           tr.classList.add('TODO')
           tdName.classList.add('TODO_name')
-          tdDate.classList.add('TODO_deadline')
+          tdDate.classList.add('TODO_date')
           editIcon.classList.add('edit-button', 'i')
           trashIcon.classList.add('edit-button', 'i')
           checkIcon.classList.add('edit-button', 'i')
@@ -221,6 +224,7 @@ body {
 
 }
 .TODO_name{
+  margin-left: 3%;
   font-weight: bold;
   font-size: 125%;
   text-align: left;
@@ -230,7 +234,7 @@ body {
 
 .TODO_date{
   text-align: left;
-  margin-left: 5%;
+  margin-left: 35%;
   font-weight: bold;
   font-size: 125%;
   color: rgb(0, 0, 0);
@@ -243,6 +247,9 @@ body {
   padding: 2.5%;
   border-radius:10px;
   box-shadow:0 0 15px 0px rgba(0,0,0,0.06);
+}
+.add_Button{
+  margin-bottom: 2%;
 }
 .background {
   position: absolute;
@@ -311,14 +318,11 @@ body {
   z-index: 1;
   border-radius: 15px 15px 15px 15px;
   box-shadow: 15px -2px 50px rgb(210, 212, 213);
-  /* display: grid; */
-  /* grid-template-rows: 20% 80%; */
-  /* height: 50vh; */
   margin-right: 0%;
   margin-left: 5%
 }
 .todo_add_button{
-  margin-top: 20%;
+  margin-left: 20%;
 }
 .content {
   z-index: 1;
