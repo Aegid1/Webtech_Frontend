@@ -9,7 +9,7 @@
         <tr v-for="user in group" :key ="user.id">
           <td> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
-          <td :style="{ width: calculateBarWidth(user.score) }" class = "BAR">. </td>
+          <td :style="{ width: (user.score/totalScore) }" class = "BAR"> . </td>
         </tr>
       </table>
       <table v-else id='group' class="">
@@ -17,14 +17,14 @@
           <td> <b> User </b> </td>
           <td> <b> 5 </b> </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: calculateBarWidth(8) }"  class = "BAR">. </div>
+            <div :style="{ width: (8/totalScore) }"  class = "BAR">. </div>
           </td>
         </tr>
         <tr class = "SCORES">
           <td> <b> Ägidius </b> </td>
           <td> <b> 3 </b>  </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: calculateBarWidth(2) }" class = "BAR">. </div>
+            <div :style="{ width: (2/totalScore) }" class = "BAR">. </div>
           </td>
         </tr>
       </table>
@@ -52,7 +52,7 @@ export default {
 
   methods: {
 
-    loadScores (userId) {
+    async loadScores (userId) {
       const endpoint = 'http://localhost:8080/getGroup/' + userId
       const requestOptions = {
         method: 'GET',
@@ -62,27 +62,26 @@ export default {
         redirect: 'follow'
       }
 
-      fetch(endpoint, requestOptions)
-        .then(response => response.json())
-        .then(result => { this.group = Array.from(result) })
-        .catch(error => console.log('scores cant be loaded', error))
+      try {
+        const response = fetch(endpoint, requestOptions)
+        const result = (await response).json
+        this.group = Array.from(result)
+        this.totalScore = this.calculateTotalScore()
+
+          .catch(error => console.log('scores cant be loaded', error))
+      } catch (error) {
+        console.log('error', error)
+      }
     },
 
     calculateTotalScore () {
       this.totalScore = 0
 
-      console.log('this.group:', this.group)
-
-      for (let i = 0; i < this.group.length; i++) {
-        const user = this.group[i]
+      this.group.forEach((user) => {
+        this.totalScore = this.totalScore + user.score
         console.log('user.score:', user.score)
-        this.totalScore += user.score
       }
-    },
-
-    calculateBarWidth (score) {
-      const percentage = (score / this.calculateTotalScore()) * 100
-      return `${(percentage)}%`
+      )
     }
 
   },
