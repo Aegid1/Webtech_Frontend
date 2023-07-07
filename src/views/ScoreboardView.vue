@@ -64,8 +64,8 @@ export default {
 
       try {
         const response = fetch(endpoint, requestOptions)
-        const result = (await response).json
-        this.group = Array.from(result)
+        const result = await response.json()
+        this.group = result
         this.totalScore = this.calculateTotalScore(this.group)
       } catch (error) {
         console.log('error', error)
@@ -73,8 +73,6 @@ export default {
     },
 
     calculateTotalScore (group) {
-      this.totalScore = 0
-
       group.forEach((user) => {
         this.totalScore = this.totalScore + user.score
         console.log('user.score:', user.score)
