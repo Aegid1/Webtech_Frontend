@@ -67,6 +67,7 @@ export default {
         .then(result => { this.group = result })
         .catch(error => console.log('scores cant be loaded', error))
     },
+
     calculateTotalScore () {
       this.totalScore = 0
 
@@ -75,6 +76,7 @@ export default {
         this.totalScore += user.score
       }
     },
+
     calculateBarWidth (score) {
       const percentage = (score / this.calculateTotalScore()) * 100
       return `${(percentage)}%`
@@ -82,8 +84,8 @@ export default {
 
   },
   mounted () {
-    // const userId = this.$route.params.id
-    // this.loadScores(userId)
+    const userId = this.$route.params.id
+    this.loadScores(userId)
   }
 
 }
