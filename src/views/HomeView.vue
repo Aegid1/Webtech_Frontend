@@ -56,9 +56,9 @@
           </tr>
         </table>
         <div class = TODO_input>
-          <input v-model="todoName" type = "text" class = "input" placeholder="To-do">
-          <input v-model="todoDate" class = "input" placeholder="Date">
-          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask(todoName, todoDate)"></i>
+          <input v-model="title" type = "text" class = "input" placeholder="To-do">
+          <input v-model="deadline" class = "input" placeholder="Date">
+          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask(title, deadline)"></i>
         </div>
       </div>
     </div>
@@ -81,8 +81,8 @@ export default {
   data () {
     return {
       todolist: [],
-      todoName: '',
-      todoDate: ''
+      title: '',
+      deadline: ''
 
     }
   },
@@ -93,10 +93,10 @@ export default {
       this.$router.push('/')
     },
 
-    addTask (todoName, todoDeadline) {
+    addTask (title, deadline) {
       const data = {
-        todoName: todoName,
-        todoDeadline: todoDeadline
+        title: title,
+        deadline: deadline
       }
 
       const task = {
@@ -107,7 +107,7 @@ export default {
         body: JSON.stringify(data)
       }
 
-      fetch('http://localhost:8080/add', task)
+      fetch('http://localhost:8080/todo', task)
         .then(response => response.json())
         .then(data => {
           const todoTable = document.getElementById('todoTable')

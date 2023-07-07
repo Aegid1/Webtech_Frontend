@@ -9,22 +9,22 @@
         <tr v-for="user in group" :key ="user.id">
           <td> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
-          <td :style="{ width: (user.score/totalScore) }" class = "BAR"> . </td>
+          <td :style="{ width: (user.score/totalScore)*100 }" class = "BAR"> . </td>
         </tr>
       </table>
       <table v-else id='group' class="">
         <tr class = "SCORES">
           <td> <b> User </b> </td>
-          <td> <b> 5 </b> </td>
+          <td> <b> 8 </b> </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: (8/totalScore) }"  class = "BAR">. </div>
+            <div :style="{ width: ((8/totalScore)*100) + '%'}"  class = "BAR">. </div>
           </td>
         </tr>
         <tr class = "SCORES">
           <td> <b> Ägidius </b> </td>
-          <td> <b> 3 </b>  </td>
+          <td> <b> 2 </b>  </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: (2/totalScore) }" class = "BAR">. </div>
+            <div :style="{ width: ((2/totalScore)*100) + '%'}" class = "BAR">. </div>
           </td>
         </tr>
       </table>
@@ -45,7 +45,7 @@ export default {
       group: [],
       firstname: '',
       userScore: '',
-      totalScore: 0
+      totalScore: 10
 
     }
   },
