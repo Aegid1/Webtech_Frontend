@@ -39,7 +39,6 @@ export default {
   name: 'ScoreboardView',
   components: {},
 
-  // nicht sicher ob todoList hier eine Liste oder nicht ein Objekt ist
   data () {
     return {
       group: [],
@@ -78,6 +77,7 @@ export default {
         this.totalScore = this.totalScore + user.score
       }
       )
+      return this.totalScore
     }
 
   },

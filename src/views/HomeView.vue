@@ -100,6 +100,10 @@ export default {
     },
 
     addTask (title, deadline, userId) {
+      if (userId === undefined) {
+        userId = this.$route.params.id
+      }
+
       const data = {
         title: title,
         deadline: deadline
@@ -115,35 +119,13 @@ export default {
 
       fetch('http://localhost:8080/todo/' + userId, task)
         .then(response => response.json())
-        .then(data => {
-          const todoTable = document.getElementById('todoTable')
-          // creates new elements in html that are then showed on website
-          const tr = document.createElement('tr')
-          const tdName = document.createElement('td')
-          const tdDate = document.createElement('td')
-          const editIcon = document.createElement('i')
-          const trashIcon = document.createElement('i')
-          const checkIcon = document.createElement('i')
-          // defines the css classes for the created elements
-          tr.classList.add('TODO')
-          tdName.classList.add('TODO_name')
-          tdDate.classList.add('TODO_date')
-          editIcon.classList.add('edit-button', 'i', 'bi', 'bi-pencil-square')
-          trashIcon.classList.add('edit-button', 'i', 'bi', 'bi-trash3-fill')
-          checkIcon.classList.add('edit-button', 'i', 'bi', 'bi-check-square-fill')
-          // adds the created elements to the tr element
-          tr.appendChild(tdName)
-          tr.appendChild(tdDate)
-          tr.appendChild(editIcon)
-          tr.appendChild(trashIcon)
-          tr.appendChild(checkIcon)
-          // adds the tr element to the todoTable
-          todoTable.appendChild(tr)
-        }
+        .then(data => {}
         ).catch(error => {
         // Behandle Fehler
           console.log(error)
         })
+
+      this.loadTasks(userId)
     },
     loadTasks (userId) {
       const endpoint = 'http://localhost:8080/alltodos/' + userId
