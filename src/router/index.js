@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import RegistrationView from '../views/RegistrationView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import SettingsView from '../views/SettingsView.vue'
+import DarkModeView from '../views/DarkModeView.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/SettingsView',
     name: 'SettingsView',
     component: SettingsView
+  },
+  {
+    path: '/DarkModeView',
+    name: 'DarkModeView',
+    component: DarkModeView
   }
 ]
 

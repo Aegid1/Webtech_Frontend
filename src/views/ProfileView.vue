@@ -64,8 +64,6 @@
             </div>
           </div>
         </form>
-        <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
-        <button @click="toggleDarkMode">Toggle Dark Mode</button>
       </div>
       <div class="thirdDiv"></div>
     </div>

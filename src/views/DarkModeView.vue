@@ -1,33 +1,37 @@
 <template>
-  <div class="container">
-    <div class="DivWrapper">
-      <!-- ... Restlicher Code ... -->
-      <form @submit.prevent="login">
-        <!-- ... Restlicher Code ... -->
-      </form>
-      <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
-    </div>
+  <div class="DarkModeView" :class="mode">
   </div>
 </template>
 
 <script>
-import DarkModeView from './DarkModeView.vue'
 export default {
-  name: 'LoginView',
-  components: {
-    DarkModeView
-  },
+  name: 'DarkModeView',
   data () {
     return {
-      isDarkMode: false
+      mode: 'dark'
     }
   },
-  methods: {
-    // ... Restlicher Code ...
+  components: {
   }
 }
 </script>
 
-<style scoped>
-/* ... Restlicher Code ... */
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.DarkModeView {
+  width: 100vw;
+  min-height: 100vh;
+  background: #F3F3F3;
+  color: #15202B;
+}
+
+.dark {
+  background: #192734;
+  color: #F3F3F3;
+}
 </style>
