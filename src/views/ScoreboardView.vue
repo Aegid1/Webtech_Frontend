@@ -9,7 +9,7 @@
         <tr v-for="user in group" :key ="user.id">
           <td> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
-          <td :style="{ width: (user.score/totalScore)*100 }" class = "BAR"> . </td>
+          <td :style="{ width: ((user.score/totalScore)*100) + '%' }" class = "BAR"> . </td>
         </tr>
       </table>
       <table v-else id='group' class="">
@@ -45,7 +45,7 @@ export default {
       group: [],
       firstname: '',
       userScore: '',
-      totalScore: 10
+      totalScore: 0
 
     }
   },
@@ -67,6 +67,7 @@ export default {
         const result = await response.json()
         this.group = result
         this.totalScore = this.calculateTotalScore(this.group)
+        console.log(this.totalScore)
       } catch (error) {
         console.log('error', error)
       }
@@ -75,7 +76,6 @@ export default {
     calculateTotalScore (group) {
       group.forEach((user) => {
         this.totalScore = this.totalScore + user.score
-        console.log('user.score:', user.score)
       }
       )
     }

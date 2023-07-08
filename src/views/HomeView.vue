@@ -39,8 +39,14 @@
         <table v-if="todolist && todolist.length > 0" id='todoTable'>
           <!-- Diese Zeile geht durch alle To-do's durch -->
           <tr v-for="todo in todolist" :key ="todo.id" class = TODOS>
-            <td class = "TODO_name"> {{ todo.title ? todo.title : ' ' }} </td>
-            <td class = "TODO_date"> {{ todo.date ? todo.date : ' ' }} </td>
+            <td class = "TODO_name">
+              <template v-if="!todo.editMode">{{ todo.title ? todo.title : ' ' }}</template>
+              <input v-else v-model="todo.title" type="text" class="input" :placeholder="todo.title ? todo.title : ' '">
+            </td>
+            <td class = "TODO_date">
+               <template v-if="!todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
+               <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
+            </td>
             <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i></td>
             <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
             <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
@@ -52,13 +58,13 @@
             <td class= "TODO_date"> 2002-12-03 </td>
             <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i> </td>
             <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px"></i> </td>
-            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px" @click="editTask(todo)"></i> </td>
           </tr>
         </table>
         <div class = TODO_input>
           <input v-model="title" type = "text" class = "input" placeholder="To-do">
           <input v-model="deadline" class = "input" placeholder="Date">
-          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask(title, deadline)"></i>
+          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask(title, deadline, userId)"></i>
         </div>
       </div>
     </div>
@@ -93,7 +99,7 @@ export default {
       this.$router.push('/')
     },
 
-    addTask (title, deadline) {
+    addTask (title, deadline, userId) {
       const data = {
         title: title,
         deadline: deadline
@@ -107,7 +113,7 @@ export default {
         body: JSON.stringify(data)
       }
 
-      fetch('http://localhost:8080/todo', task)
+      fetch('http://localhost:8080/todo/' + userId, task)
         .then(response => response.json())
         .then(data => {
           const todoTable = document.getElementById('todoTable')
@@ -122,9 +128,9 @@ export default {
           tr.classList.add('TODO')
           tdName.classList.add('TODO_name')
           tdDate.classList.add('TODO_date')
-          editIcon.classList.add('edit-button', 'i', 'bi bi-pencil-square')
-          trashIcon.classList.add('edit-button', 'i', 'bi bi-trash3-fill')
-          checkIcon.classList.add('edit-button', 'i', 'bi bi-check-square-fill')
+          editIcon.classList.add('edit-button', 'i', 'bi', 'bi-pencil-square')
+          trashIcon.classList.add('edit-button', 'i', 'bi', 'bi-trash3-fill')
+          checkIcon.classList.add('edit-button', 'i', 'bi', 'bi-check-square-fill')
           // adds the created elements to the tr element
           tr.appendChild(tdName)
           tr.appendChild(tdDate)
@@ -151,8 +157,17 @@ export default {
 
       fetch(endpoint, requestOptions)
         .then(response => response.json())
-        .then(result => { this.todolist = result })
+        .then(result => {
+          this.todolist = result
+          this.todolist.forEach(todo => {
+            todo.editMode = false
+          })
+        })
         .catch(error => console.log('todos cant be loaded', error))
+    },
+
+    editTask (todo) {
+      todo.editMode = !todo.editMode
     },
 
     // deletes a todoitem based on the todoid
