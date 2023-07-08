@@ -1,37 +1,34 @@
 <template>
   <div class="DarkModeView" :class="mode">
+    <HeaderView />
+    <ContentView />
   </div>
 </template>
 
 <script>
+import HeaderView from '@/components/HeaderView.vue'
+import ContentView from '@/components/ContentView.vue'
+
 export default {
   name: 'DarkModeView',
-  data () {
-    return {
-      mode: 'dark'
+  computed: {
+    mode () {
+      return this.$store.getters.darkMode
+    }
+  },
+  created () {
+    window.addEventListener('keyup', this.keyPress)
+  },
+  methods: {
+    keyPress (e) {
+      if (e.key === 't') {
+        this.$store.commit('toggleDarkMode')
+      }
     }
   },
   components: {
+    HeaderView,
+    ContentView
   }
 }
 </script>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.DarkModeView {
-  width: 100vw;
-  min-height: 100vh;
-  background: #F3F3F3;
-  color: #15202B;
-}
-
-.dark {
-  background: #192734;
-  color: #F3F3F3;
-}
-</style>
