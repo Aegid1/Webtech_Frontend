@@ -52,6 +52,10 @@ export default {
   methods: {
 
     async loadScores (userId) {
+      if (userId === undefined) {
+        userId = this.$route.params.id
+      }
+      console.log(userId)
       const endpoint = 'http://localhost:8080/getGroup/' + userId
       const requestOptions = {
         method: 'GET',
