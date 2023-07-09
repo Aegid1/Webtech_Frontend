@@ -20,14 +20,14 @@
                   </div>
                   <!-- HOME INFO 2 -->
                   <div>
-                    <h2><a href="https://www.example.com" style="text-decoration: none; color: blue;">2. Scoreboard</a></h2>
+                    <h2><a href="http://localhost:3000/Webtech_Frontend/home:id" style="text-decoration: none; color: blue;">2. HomeView</a></h2>
                   </div>
                   <!-- HOME INFO 3 -->
                   <div class="LinkText">
                     <h2><a href="https://www.example.com" style="text-decoration: none; color: blue;">3. Support</a></h2>
                   </div>
                   <div class="LinkText">
-                    <h2><a href="https://www.example.com" style="text-decoration: none; color: blue;">4. Logout</a></h2>
+                    <h2><a href="http://localhost:3000/Webtech_Frontend/" style="text-decoration: none; color: blue;">4. Logout</a></h2>
                   </div>
                   <router-link to="home/:id" class="button-link">
                     <button class="button"> Back to HomeView</button>

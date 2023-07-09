@@ -24,11 +24,6 @@ const routes = [
     component: RegistrationView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
-  {
     path: '/ProfileView',
     name: 'ProfileView',
     component: ProfileView
