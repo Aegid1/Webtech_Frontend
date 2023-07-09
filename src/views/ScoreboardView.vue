@@ -98,18 +98,17 @@ export default {
       )
       return total
     },
+
     sortByScoreDescending (array) {
       return array.sort((a, b) => b.score - a.score)
     },
+
     sort (group) {
-      let sortedGroup = []
       this.sorted = true
       console.log(group)
-      sortedGroup = this.sortByScoreDescending(group)
+      this.sortedGroup = this.sortByScoreDescending(group)
       console.log(this.sortedGroup)
-      return sortedGroup
     }
-
   },
   mounted () {
     const userId = this.$route.params.id

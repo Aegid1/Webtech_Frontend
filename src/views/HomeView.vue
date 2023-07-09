@@ -1,8 +1,5 @@
 <!-- eslint-disable no-template-curly-in-string -->
 <template>
-  <head>
-  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-</head>
   <div class="background">
     <div class="left-side">
       <div class="left-side-container">
@@ -51,7 +48,7 @@
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
             <td> <span class = "delete-button delete-button:hover"> <b> finished </b> </span> </td>
-            <td> <span class = "delete-button delete-button:hover" style="font-size: 18px" @click="editTask(todo.toDoId)"> <b> edit </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover" style="font-size: 18px" @click="editTask(todo)"> <b> edit </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover" @click="deleteTodo(todo.toDoId)"> <b> delete </b> </span> </td>
           </tr>
         </table>
@@ -169,13 +166,40 @@ export default {
 
       fetch(endpoint, requestOptions)
         .then(response => {
-          if (!response.ok) { console.log('Todo deletion failed') }
+          if (!response.ok) {
+            console.log('Todo deletion failed')
+          } else {
+            console.log('Todo deletion successful')
+            this.loadTasks(todoId)
+          }
         })
         .catch(error => {
-          console.log('Todo deletion failed', error)
+          console.log('Todo deletion successful', error)
         })
+    },
 
-      this.loadTasks(todoId)
+    finishTask (todo, userId) {
+      const endpoint = 'http://localhost:8080/updateScore/' + userId
+      const requestOptions = {
+        method: 'UPDATE',
+        headers: {
+          Origin: 'https://aegid1.github.io'
+        },
+        redirect: 'follow'
+      }
+
+      fetch(endpoint, requestOptions)
+        .then(response => {
+          if (response.ok()) {
+            console.log('user score got updated')
+            this.$forceUpdate()
+          } else {
+            console.log('user score got not updated')
+          }
+        })
+        .catch(error => {
+          console.log('user score update failed', error)
+        })
     }
   },
   mounted () {
