@@ -17,7 +17,7 @@
         </div>
         <div>
 
-          <div class="settings-button button button::before button:hover::before button:hover button:active" @click="navigateToSettings">
+          <div class="settings-button button button::before button:hover::before button:hover button:active" @click="navigateToSettings()">
             <i class="icons-left-side "></i>
             Settings
           </div>
@@ -103,11 +103,13 @@ export default {
     },
 
     navigateToSettings () {
-      this.$router.push('/SettingsView')
+      const userId = this.$route.params.id
+      this.$router.push('/SettingsView/' + userId)
     },
 
     navigateToProfile () {
-      this.$router.push('/ProfileView')
+      const userId = this.$route.params.id
+      this.$router.push('/ProfileView' + userId)
     },
     addTask (title, deadline, userId) {
       const todoTitle = document.getElementById('todoTitle').value
@@ -117,7 +119,7 @@ export default {
       const containsOnlyDigitsAndDashes = patternDigits.test(todoDeadline)
       const isValidFormat = patternDate.test(todoDeadline)
 
-      if (todoTitle.length > 45) {
+      if (todoTitle.length > 60) {
         alert('name is too long')
         return
       }
