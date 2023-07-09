@@ -13,7 +13,7 @@
             </div>
             <div class="loginForm">
               <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
-              <input type="password" class="InputFields" id="exampleInputPassword1" required>
+              <input type="password" class="InputFields" id="exampleInputPassword1" minlength="8" required>
             </div>
             <div class="ForgotPassword">
               <a href="http://localhost:3000/login"><b>Passwort vergessen?</b></a>
@@ -27,7 +27,7 @@
               <button type="submit" class="LoginButton"><b>Login</b></button>
               <br>
               <br>
-              <a @click="navigateToRegistrationView">Noch keinen Account? <b>Registrieren</b></a>
+              <a @click="navigateToRegistrationView">need to sign up? <b>Register</b></a>
             </div>
           </div>
         </form>

@@ -20,7 +20,7 @@
               </div>
               <div class="loginForm">
                 <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
-                <input type="password" class="InputFields" id="exampleInputPassword1" required>
+                <input type="password" class="InputFields" id="exampleInputPassword1" minlength="8" required>
                 <label for="exampleInputPassword1" class="Form-titles"><b><h2>Confirm Password</h2></b></label>
                 <input type="password" class="InputFields" id="confirmPassword" required>
               </div>
@@ -35,7 +35,7 @@
                 <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
                 <br>
                 <br>
-                <a @click="navigateToLoginView()">Already having an account? <b>to the login </b></a>
+                <a @click="navigateToLoginView()">Already signed up? <b>Login </b></a>
               </div>
             </div>
           </form>

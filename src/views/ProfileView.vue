@@ -14,7 +14,7 @@
                       </h1>
                       <div class="home_blob grid">
                         <div clas="div.home_perfil">
-                          <img src="../src/assets/Lichtbild-Mohamed_Moussa.png" alt="kein Bild">
+                          <img src="/assets/Lichtbild-Mohamed_Moussa.png" alt="kein Bild">
                         </div>
                         <!-- <img src="assets/img/shape-wawes.svg" alt="" class="home__shape-wawes"> -->
                         <!-- <img src="assets/img/shape-circle.svg" alt="" class="home__shape-circle"> -->
