@@ -178,12 +178,9 @@ export default {
     border-radius: 15px 15px 15px 15px;
   }
 
-  .InputFields{
+  .InputFields {
+    width: 90%;
     padding: 1vh;
-  }
-
-  .InputFields{
-    width: 100vh;
     background-color: white;
     display: inline-block;
   }

@@ -31,8 +31,8 @@
             </div>
           </div>
         </form>
-        <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
-        <button @click="toggleDarkMode">Toggle Dark Mode</button>
+        <!-- <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" -->
+        <!-- <button @click="toggleDarkMode">Toggle Dark Mode</button> -->
       </div>
       <div class="thirdDiv"></div>
     </div>
@@ -225,7 +225,7 @@ export default {
   }
 
   .InputFields{
-    width: 100vh;
+    width: 90%;
     background-color: white;
     display: inline-block;
   }

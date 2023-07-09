@@ -14,7 +14,7 @@
                       </h1>
                       <div class="home_blob grid">
                         <div clas="div.home_perfil">
-                          <img src="/Users/mohamedmoussa/Desktop/Universität /3. Semester/Webtechnologie /Webtech_Frontend/Lichtbild-Mohamed_Moussa.png" alt="Foto nicht findbar">
+                          <img src="../src/assets/Lichtbild-Mohamed_Moussa.png" alt="kein Bild">
                         </div>
                         <!-- <img src="assets/img/shape-wawes.svg" alt="" class="home__shape-wawes"> -->
                         <!-- <img src="assets/img/shape-circle.svg" alt="" class="home__shape-circle"> -->
@@ -58,9 +58,11 @@
                           +49 173 982 8892
                         </p>
                       </div>
-
                     </div>
                   </div>
+              <router-link to="home/:id" class="button-link">
+                <button class="button"> Back to HomeView</button>
+              </router-link>
             </div>
           </div>
         </form>
@@ -162,5 +164,13 @@ export default {
   text-align: left;
   padding-left: 20px;
   padding-bottom: 30px;
+}
+.button {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  bborder-radius: 15px 15px 15px 15px;
+  cursor: pointer;
 }
 </style>

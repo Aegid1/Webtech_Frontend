@@ -4,46 +4,39 @@
       <div class="firstDiv"></div>
       <div class="secondDiv">
         <form @submit.prevent="login">
-          <h1>Hey There!</h1>
+          <h1>Settings Overview</h1>
           <div class="WrapperLoginForm">
             <div class="loginForm">
               <div class="home__container.container.grid.section__border.">
                 <div class="home__data grid">
                   <h1 class="home-title">
-                    SETTINGS <br>
+                    View or Change your Settings <br>
                   </h1>
-                  <ul class="home__social">
-                    <a href="#" target="blank" class="home__social-link">
-                    </a>
-                    <a href="#" target="blank" class="home__social-link">
-                    </a>
-                    <a href="#" target="blank" class="home__social-link">
-                    </a>
-                  </ul>
                 </div>
                 <!-- HOME INFO 1 -->
                 <div class="home__info">
-                  <div>
-                    <h2><a href="https://www.example.com">PROFILE</a></h2>
+                  <div class="LinkText">
+                    <h2><a href="http://localhost:3000/Webtech_Frontend/profileview" style="text-decoration: none; color: blue;"> 1. Profile</a></h2>
                   </div>
                   <!-- HOME INFO 2 -->
                   <div>
-                    <h2><a href="https://www.example.com">SCOREBOARD</a></h2>
+                    <h2><a href="https://www.example.com" style="text-decoration: none; color: blue;">2. Scoreboard</a></h2>
                   </div>
                   <!-- HOME INFO 3 -->
-                  <div>
-                    <h2><a href="https://www.example.com">SUPPORT</a></h2>
+                  <div class="LinkText">
+                    <h2><a href="https://www.example.com" style="text-decoration: none; color: blue;">3. Support</a></h2>
                   </div>
-                  <div>
-                    <h2><a href="https://www.example.com">LOGOUT</a></h2>
+                  <div class="LinkText">
+                    <h2><a href="https://www.example.com" style="text-decoration: none; color: blue;">4. Logout</a></h2>
                   </div>
+                  <router-link to="home/:id" class="button-link">
+                    <button class="button"> Back to HomeView</button>
+                  </router-link>
                 </div>
               </div>
             </div>
           </div>
         </form>
-        <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
-        <button @click="toggleDarkMode">Toggle Dark Mode</button>
       </div>
       <div class="thirdDiv"></div>
     </div>
@@ -144,5 +137,14 @@ export default {
   text-align: left;
   padding-left: 20px;
   padding-bottom: 30px;
+}
+
+.button {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  bborder-radius: 15px 15px 15px 15px;
+  cursor: pointer;
 }
 </style>
