@@ -40,11 +40,11 @@
           <!-- Diese Zeile geht durch alle To-do's durch -->
           <tr v-for="todo in todolist" :key ="todo.id" class = TODOS>
             <td class = "TODO_name">
-              <template v-if="todo.editMode">{{ todo.title ? todo.title : ' ' }}</template>
+              <template v-if="!todo.editMode">{{ todo.title ? todo.title : ' ' }}</template>
               <input v-else v-model="todo.title" type="text" class="input" :placeholder="todo.title ? todo.title : ' '">
             </td>
             <td class = "TODO_date">
-               <template v-if="todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
+               <template v-if="!todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
             <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i></td>

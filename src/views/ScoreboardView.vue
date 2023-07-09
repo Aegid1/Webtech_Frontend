@@ -11,7 +11,7 @@
         <br>
         <br>
       </div>
-      <table v-if="group.length > 0" id='group'>
+      <table v-if="group.length > 0 && totalScore !== null" id='group'>
         <!-- Diese Zeile geht durch alle To-do's durch -->
         <tr v-for="user in group" :key ="user.id">
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
@@ -51,7 +51,7 @@ export default {
       group: [],
       firstname: '',
       userScore: '',
-      totalScore: 0
+      totalScore: null
 
     }
   },
@@ -77,19 +77,18 @@ export default {
         const result = await response.json()
         this.group = result
         this.totalScore = this.calculateTotalScore(this.group)
-        console.log(this.totalScore)
-        this.$forceUpdate()
       } catch (error) {
         console.log('error', error)
       }
     },
 
     calculateTotalScore (group) {
+      let total = 0
       group.forEach((user) => {
-        this.totalScore = this.totalScore + user.score
+        total = total + user.score
       }
       )
-      return this.totalScore
+      return total
     },
 
     sort () {
