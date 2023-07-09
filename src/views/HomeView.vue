@@ -10,14 +10,14 @@
             </div>
           </div>
 
-          <div class="profile-button button button::before button:hover::before button:hover button:active">
+          <div class="profile-button button button::before button:hover::before button:hover button:active" @click="navigateToProfile()">
             <i class="icons-left-side"></i>
             Profile
           </div>
         </div>
         <div>
 
-          <div class="settings-button button button::before button:hover::before button:hover button:active">
+          <div class="settings-button button button::before button:hover::before button:hover button:active" @click="navigateToSettings">
             <i class="icons-left-side "></i>
             Settings
           </div>
@@ -44,26 +44,28 @@
               <input v-else v-model="todo.title" type="text" class="input" :placeholder="todo.title ? todo.title : ' '">
             </td>
             <td class = "TODO_date">
-               <template v-if="!todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
+              <template v-if="!todo.editMode">
+                <span :style="{color: isDateAfterSystemDate(todo.date) ? 'red' : '' }"> {{ todo.date ? todo.date : ' ' }} </span>
+              </template>
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
-            <td> <span class = "delete-button delete-button:hover"> <b> finished </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover" @click="finishTask(todo, userId)"> <b> finished </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover" style="font-size: 18px" @click="editTask(todo)"> <b> edit </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover" @click="deleteTodo(todo.toDoId)"> <b> delete </b> </span> </td>
           </tr>
         </table>
         <table v-else id='todoTable'>
           <tr class = "TODOS">
-            <td class= "TODO_name"> test </td>
-            <td class= "TODO_date"> 2002-12-03 </td>
+            <td class= "TODO_name"> </td>
+            <td class= "TODO_date"> </td>
             <td> <span class = "delete-button delete-button:hover"> <b> finished </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover"> <b> edit </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover"> <b> delete </b> </span> </td>
           </tr>
         </table>
         <div class = TODO_input>
-          <input v-model="title" type = "text" class = "input" placeholder="To-do">
-          <input v-model="deadline" class = "input" placeholder="Date">
+          <input v-model="title" type = "text" class = "input" placeholder="To-do" id="todoTitle">
+          <input v-model="deadline" class = "input" placeholder="YYYY-MM-DD" id="todoDeadline">
           <span class="delete-button delete-button:hover" @click = "addTask(title, deadline, userId)"> <b> add Task </b></span>
         </div>
       </div>
@@ -100,7 +102,34 @@ export default {
       this.$router.push('/')
     },
 
+    navigateToSettings () {
+      this.$router.push('/SettingsView')
+    },
+
+    navigateToProfile () {
+      this.$router.push('/ProfileView')
+    },
     addTask (title, deadline, userId) {
+      const todoTitle = document.getElementById('todoTitle').value
+      const todoDeadline = document.getElementById('todoDeadline').value
+      const patternDate = /^\d{4}-\d{2}-\d{2}$/
+      const patternDigits = /^[-0-9]+$/
+      const containsOnlyDigitsAndDashes = patternDigits.test(todoDeadline)
+      const isValidFormat = patternDate.test(todoDeadline)
+
+      if (todoTitle.length > 45) {
+        alert('name is too long')
+        return
+      }
+      if (containsOnlyDigitsAndDashes === false) {
+        alert('name contains invalid characters')
+        return
+      }
+      if (isValidFormat === false) {
+        alert('date ist not in the right format YYYY-MM-DD')
+        return
+      }
+
       if (userId === undefined) {
         userId = this.$route.params.id
       }
@@ -120,13 +149,17 @@ export default {
 
       fetch('http://localhost:8080/todo/' + userId, task)
         .then(response => response.json())
-        .then(data => {}
-        ).catch(error => {
-        // Behandle Fehler
+        .then(response => {
+          if (response.ok) {
+            console.log('todo was successfully added')
+            this.loadTasks(userId)
+          }
+        }
+        ).then(() => {
+          this.$forceUpdate()
+        }).catch(error => {
           console.log(error)
         })
-
-      this.loadTasks(userId)
     },
     loadTasks (userId) {
       const endpoint = 'http://localhost:8080/alltodos/' + userId
@@ -169,9 +202,13 @@ export default {
           if (!response.ok) {
             console.log('Todo deletion failed')
           } else {
+            const userId = this.$route.params.id
             console.log('Todo deletion successful')
-            this.loadTasks(todoId)
+            this.loadTasks(userId)
           }
+        })
+        .then(() => {
+          this.$forceUpdate()
         })
         .catch(error => {
           console.log('Todo deletion successful', error)
@@ -179,13 +216,17 @@ export default {
     },
 
     finishTask (todo, userId) {
+      const data = todo
       const endpoint = 'http://localhost:8080/updateScore/' + userId
       const requestOptions = {
-        method: 'UPDATE',
+        method: 'PUT',
         headers: {
+          'Content-Type': 'application/json',
           Origin: 'https://aegid1.github.io'
         },
-        redirect: 'follow'
+        redirect: 'follow',
+        body: JSON.stringify(data)
+
       }
 
       fetch(endpoint, requestOptions)
@@ -200,6 +241,14 @@ export default {
         .catch(error => {
           console.log('user score update failed', error)
         })
+    },
+
+    isDateAfterSystemDate (date) {
+      const systemDate = new Date()
+      const dateParts = date.split('-')
+      // Date ist nullbasiert, d.h. Januar ist 0 und nicht 1
+      const todoDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+      return todoDate > systemDate
     }
   },
   mounted () {
