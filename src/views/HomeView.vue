@@ -220,6 +220,7 @@ export default {
       const data = todo
       const userId = this.$route.params
       console.log(userId)
+      console.log(data)
       const endpoint = 'http://localhost:8080/updateScore/' + userId
       const requestOptions = {
         method: 'PUT',
@@ -256,13 +257,12 @@ export default {
       // Date ist nullbasiert, d.h. Januar ist 0 und nicht 1
       const todoDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
       return todoDate > systemDate
-    },
-
-    mounted () {
-      const userId = this.$route.params.id
-      this.loadTasks(userId)
     }
+  },
 
+  mounted () {
+    const userId = this.$route.params.id
+    this.loadTasks(userId)
   }
 }
 </script>
