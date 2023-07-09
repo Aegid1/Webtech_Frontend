@@ -152,11 +152,12 @@ export default {
         .then(response => {
           if (response.ok) {
             console.log('todo was successfully added')
-            this.$forceUpdate()
+            this.loadTasks(userId)
           }
         }
-        ).catch(error => {
-        // Behandle Fehler
+        ).then(() => {
+          this.$forceUpdate()
+        }).catch(error => {
           console.log(error)
         })
     },
@@ -201,9 +202,13 @@ export default {
           if (!response.ok) {
             console.log('Todo deletion failed')
           } else {
+            const userId = this.$route.params.id
             console.log('Todo deletion successful')
-            this.$forceUpdate()
+            this.loadTasks(userId)
           }
+        })
+        .then(() => {
+          this.$forceUpdate()
         })
         .catch(error => {
           console.log('Todo deletion successful', error)
@@ -216,6 +221,7 @@ export default {
       const requestOptions = {
         method: 'PUT',
         headers: {
+          'Content-Type': 'application/json',
           Origin: 'https://aegid1.github.io'
         },
         redirect: 'follow',
@@ -239,7 +245,9 @@ export default {
 
     isDateAfterSystemDate (date) {
       const systemDate = new Date()
-      const todoDate = new Date(date)
+      const dateParts = date.split('-')
+      // Date ist nullbasiert, d.h. Januar ist 0 und nicht 1
+      const todoDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
       return todoDate > systemDate
     }
   },
