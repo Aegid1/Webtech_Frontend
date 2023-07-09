@@ -40,16 +40,16 @@
           <!-- Diese Zeile geht durch alle To-do's durch -->
           <tr v-for="todo in todolist" :key ="todo.id" class = TODOS>
             <td class = "TODO_name">
-              <template v-if="!todo.editMode">{{ todo.title ? todo.title : ' ' }}</template>
+              <template v-if="todo.editMode">{{ todo.title ? todo.title : ' ' }}</template>
               <input v-else v-model="todo.title" type="text" class="input" :placeholder="todo.title ? todo.title : ' '">
             </td>
             <td class = "TODO_date">
-               <template v-if="!todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
+               <template v-if="todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
             <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i></td>
-            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
-            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.toDoId)"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px" @click="editTask(todo.toDoId)"></i> </td>
           </tr>
         </table>
         <table v-else id='todoTable'>
@@ -58,7 +58,7 @@
             <td class= "TODO_date"> 2002-12-03 </td>
             <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i> </td>
             <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px"></i> </td>
-            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px" @click="editTask(todo)"></i> </td>
+            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
           </tr>
         </table>
         <div class = TODO_input>
@@ -86,6 +86,7 @@ export default {
   // nicht sicher ob todoList hier eine Liste oder nicht ein Objekt ist
   data () {
     return {
+      toDoId: '',
       todolist: [],
       title: '',
       deadline: ''
@@ -154,13 +155,6 @@ export default {
 
     // deletes a todoitem based on the todoid
     deleteTodo (todoId) {
-      // sucht den index des todos raus, das deleted werden soll
-      const index = this.todolist.findIndex(todo => todo.id === todoId)
-
-      // wenn todo gefunden gibt es den index zurück, falls kein todo gefunden wird -1 returned und es geht nicht in if case rein
-      if (index !== -1) {
-        this.todolist.splice(index, 1)
-      }
       const endpoint = 'http://localhost:8080/delete/' + todoId
       const requestOptions = {
         method: 'DELETE',
@@ -177,6 +171,8 @@ export default {
         .catch(error => {
           console.log('Todo deletion failed', error)
         })
+
+      this.loadTasks(todoId)
     }
   },
   mounted () {

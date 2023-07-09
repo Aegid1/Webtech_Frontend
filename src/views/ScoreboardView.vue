@@ -4,25 +4,32 @@
       <h1 class = "title"> Scoreboard </h1>
       <div class = "layout">
       <div class = ""> </div>
+      <div>
+        <br>
+        <b> Sort </b>
+        <i class = "eddit-button eddit-button i sort_button" @click = "sort"></i>
+        <br>
+        <br>
+      </div>
       <table v-if="group.length > 0" id='group'>
         <!-- Diese Zeile geht durch alle To-do's durch -->
         <tr v-for="user in group" :key ="user.id">
-          <td> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
+          <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
           <td :style="{ width: ((user.score/totalScore)*100) + '%' }" class = "BAR"> . </td>
         </tr>
       </table>
       <table v-else id='group' class="">
         <tr class = "SCORES">
-          <td> <b> User </b> </td>
-          <td> <b> 8 </b> </td>
+          <td class = "score_name"> <b> User </b> </td>
+          <td> <b> 2 </b> </td>
           <td class = "BAR_BACK">
             <div :style="{ width: ((8/totalScore)*100) + '%'}"  class = "BAR">. </div>
           </td>
         </tr>
         <tr class = "SCORES">
-          <td> <b> Ägidius </b> </td>
-          <td> <b> 2 </b>  </td>
+          <td class = "score_name"> <b> Ägidius </b> </td>
+          <td> <b> 8 </b>  </td>
           <td class = "BAR_BACK">
             <div :style="{ width: ((2/totalScore)*100) + '%'}" class = "BAR">. </div>
           </td>
@@ -71,6 +78,7 @@ export default {
         this.group = result
         this.totalScore = this.calculateTotalScore(this.group)
         console.log(this.totalScore)
+        this.$forceUpdate()
       } catch (error) {
         console.log('error', error)
       }
@@ -82,6 +90,11 @@ export default {
       }
       )
       return this.totalScore
+    },
+
+    sort () {
+      this.group.sort((a, b) => b.score - a.score)
+      this.$forceUpdate()
     }
 
   },
@@ -97,6 +110,14 @@ export default {
 
 .title {
 margin-top: 5vh;
+}
+
+.sort_button{
+  margin-left: 85%;
+}
+
+.score_name{
+  text-align: left;
 }
 
 .layout{
@@ -127,6 +148,23 @@ width: 70%;
 background-color: #f8efef;
 border-radius: 30px 30px 30px 30px;
 z-index: 0;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.settings-button i,
+.logout-button i,
+.profile-button i,
+.edit-button i {
+  margin-right: 10%;
+  z-index: 1;
 }
 
 </style>

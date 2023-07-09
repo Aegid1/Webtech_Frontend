@@ -61,7 +61,8 @@ export default {
       const confirmEmail = document.getElementById('confirmEmail').value
       const password = document.getElementById('exampleInputPassword1').value
       const confirmPassword = document.getElementById('confirmPassword').value
-
+      const firstname = document.getElementById('examplefirstName').value
+      const lastname = document.getElementById('exampleLastname').value
       // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
       if (email === '' || confirmEmail === '' || password === '' || confirmPassword === '') {
         alert('Bitte füllen Sie alle Felder aus')
@@ -80,7 +81,9 @@ export default {
 
       const user = {
         email: email,
-        password: password
+        password: password,
+        firstname: firstname,
+        lastname: lastname
       }
 
       const userData = {
