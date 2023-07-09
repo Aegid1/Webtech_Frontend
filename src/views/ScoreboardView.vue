@@ -6,32 +6,38 @@
       <div class = ""> </div>
       <div>
         <br>
-        <b> Sort </b>
-        <i class = "eddit-button eddit-button i sort_button" @click = "sort"></i>
+        <div class = "sort-button sort-button:hover"> <b> Sort </b> </div>
+        <i class = "eddit-button eddit-button i sort_button" @click = "sort(group)"></i>
         <br>
         <br>
       </div>
-      <table v-if="group.length > 0 && totalScore !== null" id='group'>
-        <!-- Diese Zeile geht durch alle To-do's durch -->
+      <table v-if="sorted === false && group.length > 0 && totalScore !== null" id='group' class = "table">
         <tr v-for="user in group" :key ="user.id">
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
           <td :style="{ width: ((user.score/totalScore)*100) + '%' }" class = "BAR"> . </td>
         </tr>
       </table>
-      <table v-else id='group' class="">
+      <table v-else-if="sorted === true && group.length > 0 && totalScore !== null" id='sortedgroup' class="table">
+        <tr v-for="user in sortedGroup" :key ="user.id">
+          <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
+          <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
+          <td :style="{ width: ((user.score/this.totalScore)*100) + '%' }" class = "BAR"> . </td>
+        </tr>
+      </table>
+      <table v-else class="table">
         <tr class = "SCORES">
           <td class = "score_name"> <b> User </b> </td>
           <td> <b> 2 </b> </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: ((8/totalScore)*100) + '%'}"  class = "BAR">. </div>
+            <div :style="{ width: ((8/this.totalScore)*100) + '%'}"  class = "BAR">. </div>
           </td>
         </tr>
         <tr class = "SCORES">
           <td class = "score_name"> <b> Ägidius </b> </td>
           <td> <b> 8 </b>  </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: ((2/totalScore)*100) + '%'}" class = "BAR">. </div>
+            <div :style="{ width: ((2/this.totalScore)*100) + '%'}" class = "BAR">. </div>
           </td>
         </tr>
       </table>
@@ -51,7 +57,9 @@ export default {
       group: [],
       firstname: '',
       userScore: '',
-      totalScore: null
+      totalScore: null,
+      sorted: false,
+      sortedGroup: []
 
     }
   },
@@ -90,10 +98,16 @@ export default {
       )
       return total
     },
-
-    sort () {
-      this.group.sort((a, b) => b.score - a.score)
-      this.$forceUpdate()
+    sortByScoreDescending (array) {
+      return array.sort((a, b) => b.score - a.score)
+    },
+    sort (group) {
+      let sortedGroup = []
+      this.sorted = true
+      console.log(group)
+      sortedGroup = this.sortByScoreDescending(group)
+      console.log(this.sortedGroup)
+      return sortedGroup
     }
 
   },
@@ -106,6 +120,25 @@ export default {
 </script>
 
 <style>
+
+.table {
+  margin-left: 5%;
+}
+.sort-button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #e7dcdc;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 5%;
+}
+
+.sort-button:hover {
+  background-color: #ffffff;
+}
 
 .title {
 margin-top: 5vh;

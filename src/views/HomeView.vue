@@ -1,29 +1,32 @@
 <!-- eslint-disable no-template-curly-in-string -->
 <template>
+  <head>
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+</head>
   <div class="background">
     <div class="left-side">
       <div class="left-side-container">
         <div>
           <div class = "profile-picture">
             <div class = "circle button">
-              <i class="bi bi-upload" style = "font-size: 180%;"></i>
+              <i class="" style = "font-size: 180%;"></i>
             </div>
           </div>
 
           <div class="profile-button button button::before button:hover::before button:hover button:active">
-            <i class="icons-left-side bi bi-person-fill"></i>
+            <i class="icons-left-side"></i>
             Profile
           </div>
         </div>
         <div>
 
           <div class="settings-button button button::before button:hover::before button:hover button:active">
-            <i class="icons-left-side bi bi-gear-fill"></i>
+            <i class="icons-left-side "></i>
             Settings
           </div>
 
           <div class="logout-button button button::before button:hover::before button:hover button:active" @click="navigateToLogin()">
-            <i class="icons-left-side bi bi-arrow-left-square-fill" style="margin-right: 10%; font-size: 85%;"></i>
+            <i class="icons-left-side " style="margin-right: 10%; font-size: 85%;"></i>
             Logout
           </div>
         </div>
@@ -47,24 +50,24 @@
                <template v-if="!todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
-            <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i></td>
-            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.toDoId)"></i> </td>
-            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px" @click="editTask(todo.toDoId)"></i> </td>
+            <td> <span class = "delete-button delete-button:hover"> <b> finished </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover" style="font-size: 18px" @click="editTask(todo.toDoId)"> <b> edit </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover" @click="deleteTodo(todo.toDoId)"> <b> delete </b> </span> </td>
           </tr>
         </table>
         <table v-else id='todoTable'>
           <tr class = "TODOS">
             <td class= "TODO_name"> test </td>
             <td class= "TODO_date"> 2002-12-03 </td>
-            <td> <i class="edit-button edit-button i bi bi-check-square-fill" style="font-size: 18px"></i> </td>
-            <td> <i class="edit-button edit-button i bi bi-trash3-fill" style="font-size: 18px"></i> </td>
-            <td> <i class="edit-button edit-button i bi bi-pencil-square" style="font-size: 18px"></i> </td>
+            <td> <span class = "delete-button delete-button:hover"> <b> finished </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover"> <b> edit </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover"> <b> delete </b> </span> </td>
           </tr>
         </table>
         <div class = TODO_input>
           <input v-model="title" type = "text" class = "input" placeholder="To-do">
           <input v-model="deadline" class = "input" placeholder="Date">
-          <i class="edit-button edit-button i todo_add_button bi bi-plus-square-fill" style="font-size: 30px" @click = "addTask(title, deadline, userId)"></i>
+          <span class="delete-button delete-button:hover" @click = "addTask(title, deadline, userId)"> <b> add Task </b></span>
         </div>
       </div>
     </div>
@@ -184,6 +187,22 @@ export default {
 </script>
 
 <style>
+
+.delete-button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #e7dcdc;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #ffffff;
+}
+
 .ul li{
   list-style: none;
   font-size: 17px;
