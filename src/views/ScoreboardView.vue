@@ -16,7 +16,7 @@
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
           <td>
-            <div :style="{ width: (((user.score/this.totalScore)*1000) + '%') }" class = "BAR"> . </div>
+            <div :style="{ width: (((user.score/this.totalScore)*5000) + '%') }" class = "BAR"> . </div>
           </td>
         </tr>
       </table>
@@ -25,7 +25,7 @@
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
           <td>
-            <div :style="{ width: (((user.score/this.totalScore)*1000) + '%') }" class = "BAR"> . </div>
+            <div :style="{ width: (((user.score/this.totalScore)*5000) + '%') }" class = "BAR"> . </div>
           </td>
         </tr>
       </table>
@@ -34,14 +34,14 @@
           <td class = "score_name"> <b> User </b> </td>
           <td> <b> 2 </b> </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: ((8/this.totalScore)*1000) + '%'}"  class = "BAR">. </div>
+            <div :style="{ width: ((8/this.totalScore)*5000) + '%'}"  class = "BAR">. </div>
           </td>
         </tr>
         <tr class = "SCORES">
           <td class = "score_name"> <b> Ägidius </b> </td>
           <td> <b> 8 </b>  </td>
           <td class = "BAR_BACK">
-            <div :style="{ width: ((2/this.totalScore)*1000) + '%'}" class = "BAR">. </div>
+            <div :style="{ width: ((2/this.totalScore)*5000) + '%'}" class = "BAR">. </div>
           </td>
         </tr>
       </table>

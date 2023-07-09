@@ -49,7 +49,7 @@
               </template>
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
-            <td> <span class = "delete-button delete-button:hover" @click="finishTask(todo, userId)"> <b> finished </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover" @click="finishTask(todo)"> <b> finished </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover" style="font-size: 18px" @click="editTask(todo)"> <b> edit </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover" @click="deleteTodo(todo.toDoId)"> <b> delete </b> </span> </td>
           </tr>
@@ -152,13 +152,14 @@ export default {
         .then(response => {
           if (response.ok) {
             console.log('todo was successfully added')
-            this.loadTasks(userId)
           }
-        }
-        ).then(() => {
-          this.$forceUpdate()
-        }).catch(error => {
+        })
+        .catch(error => {
           console.log(error)
+        })
+        .finally(() => {
+          this.loadTasks(userId)
+          this.$forceUpdate()
         })
     },
     loadTasks (userId) {
@@ -215,8 +216,10 @@ export default {
         })
     },
 
-    finishTask (todo, userId) {
+    finishTask (todo) {
       const data = todo
+      const userId = this.$route.params
+      console.log(userId)
       const endpoint = 'http://localhost:8080/updateScore/' + userId
       const requestOptions = {
         method: 'PUT',
@@ -231,15 +234,19 @@ export default {
 
       fetch(endpoint, requestOptions)
         .then(response => {
-          if (response.ok()) {
-            console.log('user score got updated')
-            this.$forceUpdate()
+          if (!response.ok) {
+            console.log('Todo finish failed')
           } else {
-            console.log('user score got not updated')
+            const userId = this.$route.params.id
+            console.log('Todo deletion successful')
+            this.loadTasks(userId)
           }
         })
+        .then(() => {
+          this.$forceUpdate()
+        })
         .catch(error => {
-          console.log('user score update failed', error)
+          console.log('Todo deletion successful', error)
         })
     },
 
@@ -249,13 +256,14 @@ export default {
       // Date ist nullbasiert, d.h. Januar ist 0 und nicht 1
       const todoDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
       return todoDate > systemDate
-    }
-  },
-  mounted () {
-    const userId = this.$route.params.id
-    this.loadTasks(userId)
-  }
+    },
 
+    mounted () {
+      const userId = this.$route.params.id
+      this.loadTasks(userId)
+    }
+
+  }
 }
 </script>
 
