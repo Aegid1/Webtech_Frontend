@@ -6,19 +6,19 @@
       <div class = ""> </div>
       <div>
         <br>
-        <div class = "sort-button sort-button:hover"> <b> Sort </b> </div>
-        <i class = "eddit-button eddit-button i sort_button" @click = "sort(group)"></i>
+        <div class = "sort-button sort-button:hover" @click = "sort(group)"> <b> Sort </b> </div>
+        <i class = "eddit-button eddit-button i sort_button"></i>
         <br>
         <br>
       </div>
-      <table v-if="sorted === false && group.length > 0 && totalScore !== null" id='group' class = "table">
+      <table v-if="sorted === false && group.length > 0 && this.totalScore !== null" id='group' class = "table">
         <tr v-for="user in group" :key ="user.id">
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
-          <td :style="{ width: ((user.score/totalScore)*100) + '%' }" class = "BAR"> . </td>
+          <td :style="{ width: ((user.score/this.totalScore)*100) + '%' }" class = "BAR"> . </td>
         </tr>
       </table>
-      <table v-else-if="sorted === true && group.length > 0 && totalScore !== null" id='sortedgroup' class="table">
+      <table v-else-if="sorted === true && group.length > 0 && this.totalScore !== null" id='sortedgroup' class="table">
         <tr v-for="user in sortedGroup" :key ="user.id">
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
@@ -85,6 +85,7 @@ export default {
         const result = await response.json()
         this.group = result
         this.totalScore = this.calculateTotalScore(this.group)
+        console.log(this.totalScore)
       } catch (error) {
         console.log('error', error)
       }

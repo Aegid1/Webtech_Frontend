@@ -25,7 +25,7 @@
                 <input type="password" class="InputFields" id="confirmPassword" required>
               </div>
               <div class="ForgotPassword">
-                <a href="http://localhost:3000/login"><b>Passwort vergessen?</b></a>
+                <a href="http://localhost:3000/login"><b>Forgot your password?</b></a>
                 <br>
               </div>
               <div class=Checkbox>
@@ -35,7 +35,7 @@
                 <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
                 <br>
                 <br>
-                <a @click="navigateToLoginView">Schon einen Account? <b>Zum Login</b></a>
+                <a @click="navigateToLoginView()">Already having an account? <b>to the login </b></a>
               </div>
             </div>
           </form>
@@ -65,17 +65,17 @@ export default {
       const lastname = document.getElementById('exampleLastname').value
       // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
       if (email === '' || confirmEmail === '' || password === '' || confirmPassword === '') {
-        alert('Bitte füllen Sie alle Felder aus')
+        alert('Please fill all fields')
         return
       }
 
       if (email !== confirmEmail) {
-        alert('Die E-Mail-Adressen stimmen nicht überein')
+        alert('The email addresses do not match')
         return
       }
 
       if (password !== confirmPassword) {
-        alert('Die Passwörter stimmen nicht überein')
+        alert('The passwords do not match')
         return
       }
 
