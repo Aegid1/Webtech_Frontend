@@ -15,14 +15,18 @@
         <tr v-for="user in group" :key ="user.id">
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
-          <td :style="{ width: ((user.score/this.totalScore)*100) + '%' }" class = "BAR"> . </td>
+          <td>
+            <div :style="{ width: ((user.score/this.totalScore)*100) + '%' }" class = "BAR"> . </div>
+          </td>
         </tr>
       </table>
       <table v-else-if="sorted === true && group.length > 0 && this.totalScore !== null" id='sortedgroup' class="table">
         <tr v-for="user in sortedGroup" :key ="user.id">
           <td class = ""> <b> {{ user.firstname ? user.firstname : ' ' }} </b> </td>
           <td> <b> {{ user.score ? user.score : ' ' }} </b> </td>
-          <td :style="{ width: ((user.score/this.totalScore)*100) + '%' }" class = "BAR"> . </td>
+          <td>
+            <div :style="{ width: ((user.score/this.totalScore)*100) + '%' }" class = "BAR"> . </div>
+          </td>
         </tr>
       </table>
       <table v-else class="table">

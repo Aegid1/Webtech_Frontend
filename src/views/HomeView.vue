@@ -44,7 +44,9 @@
               <input v-else v-model="todo.title" type="text" class="input" :placeholder="todo.title ? todo.title : ' '">
             </td>
             <td class = "TODO_date">
-               <template v-if="!todo.editMode">{{ todo.date ? todo.date : ' ' }}</template>
+              <template v-if="!todo.editMode">
+                <span :style="{color: isDateAfterSystemDate(todo.date) ? 'red' : '' }"> {{ todo.date ? todo.date : ' ' }} </span>
+              </template>
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
             <td> <span class = "delete-button delete-button:hover" @click="finishTask(todo, userId)"> <b> finished </b> </span> </td>
@@ -150,7 +152,7 @@ export default {
         .then(response => {
           if (response.ok) {
             console.log('todo was successfully added')
-            this.loadTasks(userId)
+            this.$forceUpdate()
           }
         }
         ).catch(error => {
@@ -200,7 +202,7 @@ export default {
             console.log('Todo deletion failed')
           } else {
             console.log('Todo deletion successful')
-            this.loadTasks(todoId)
+            this.$forceUpdate()
           }
         })
         .catch(error => {
@@ -209,13 +211,16 @@ export default {
     },
 
     finishTask (todo, userId) {
+      const data = todo
       const endpoint = 'http://localhost:8080/updateScore/' + userId
       const requestOptions = {
-        method: 'UPDATE',
+        method: 'PUT',
         headers: {
           Origin: 'https://aegid1.github.io'
         },
-        redirect: 'follow'
+        redirect: 'follow',
+        body: JSON.stringify(data)
+
       }
 
       fetch(endpoint, requestOptions)
@@ -230,6 +235,12 @@ export default {
         .catch(error => {
           console.log('user score update failed', error)
         })
+    },
+
+    isDateAfterSystemDate (date) {
+      const systemDate = new Date()
+      const todoDate = new Date(date)
+      return todoDate > systemDate
     }
   },
   mounted () {
