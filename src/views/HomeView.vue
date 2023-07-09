@@ -217,7 +217,7 @@ export default {
     },
 
     finishTask (todoId) {
-      const userId = this.$route.params
+      const userId = this.$route.params.id
       console.log(userId)
       console.log(todoId)
       const endpoint = 'http://localhost:8080/updateScore/' + userId + '/' + todoId

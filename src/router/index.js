@@ -24,12 +24,12 @@ const routes = [
     component: RegistrationView
   },
   {
-    path: '/ProfileView',
+    path: '/ProfileView/:id',
     name: 'ProfileView',
     component: ProfileView
   },
   {
-    path: '/SettingsView',
+    path: '/SettingsView/:id',
     name: 'SettingsView',
     component: SettingsView
   },
