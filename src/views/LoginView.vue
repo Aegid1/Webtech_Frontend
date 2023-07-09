@@ -13,7 +13,7 @@
             </div>
             <div class="loginForm">
               <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
-              <input type="password" class="InputFields" id="exampleInputPassword1" minlength="8" required>
+              <input type="password" class="InputFields" id="exampleInputPassword1">
             </div>
             <div class="ForgotPassword">
               <a href="http://localhost:3000/login"><b>Passwort vergessen?</b></a>
