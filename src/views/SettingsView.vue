@@ -29,8 +29,8 @@
                   <div class="LinkText">
                     <h2><a href="http://localhost:3000/Webtech_Frontend/" style="text-decoration: none; color: blue;">4. Logout</a></h2>
                   </div>
-                  <router-link to="home/:id" class="button-link">
-                    <button class="button"> Back to HomeView</button>
+                  <router-link to="'home/' + id" class="button-link">
+                    <button class="button"> Back to home</button>
                   </router-link>
                 </div>
               </div>
@@ -46,7 +46,8 @@
 <script>
 export default {
   name: 'ProfileView.vue',
-  components: {}
+  components: {},
+  props: ['id']
 
 }
 </script>

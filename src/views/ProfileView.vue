@@ -60,8 +60,8 @@
                       </div>
                     </div>
                   </div>
-              <router-link to="home/:id" class="button-link">
-                <button class="button"> Back to HomeView</button>
+              <router-link to="'home/' + id" class="button-link">
+                <button class="button"> Back to home</button>
               </router-link>
             </div>
           </div>
@@ -74,7 +74,8 @@
 
 <script>
 export default {
-  name: 'ProfileView.vue'
+  name: 'ProfileView.vue',
+  props: ['id']
 }
 </script>
 

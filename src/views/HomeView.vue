@@ -49,7 +49,7 @@
               </template>
                <input v-else v-model="todo.date" type="text" class="input" :placeholder="todo.date ? todo.date : ' '">
             </td>
-            <td> <span class = "delete-button delete-button:hover" @click="finishTask(todo)"> <b> finished </b> </span> </td>
+            <td> <span class = "delete-button delete-button:hover" @click="finishTask(todo.toDoId)"> <b> finished </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover" style="font-size: 18px" @click="editTask(todo)"> <b> edit </b> </span> </td>
             <td> <span class = "delete-button delete-button:hover" @click="deleteTodo(todo.toDoId)"> <b> delete </b> </span> </td>
           </tr>
@@ -216,20 +216,17 @@ export default {
         })
     },
 
-    finishTask (todo) {
-      const data = todo
+    finishTask (todoId) {
       const userId = this.$route.params
       console.log(userId)
-      console.log(data)
-      const endpoint = 'http://localhost:8080/updateScore/' + userId
+      console.log(todoId)
+      const endpoint = 'http://localhost:8080/updateScore/' + userId + '/' + todoId
       const requestOptions = {
-        method: 'PUT',
+        method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
           Origin: 'https://aegid1.github.io'
         },
-        redirect: 'follow',
-        body: JSON.stringify(data)
+        redirect: 'follow'
 
       }
 
