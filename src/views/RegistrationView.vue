@@ -24,10 +24,6 @@
                 <label for="exampleInputPassword1" class="Form-titles"><b><h2>Confirm Password</h2></b></label>
                 <input type="password" class="InputFields" id="confirmPassword" required>
               </div>
-              <div class="ForgotPassword">
-                <a href="http://localhost:3000/login"><b>Forgot your password?</b></a>
-                <br>
-              </div>
               <div class=Checkbox>
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
