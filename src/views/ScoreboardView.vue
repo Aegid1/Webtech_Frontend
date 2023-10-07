@@ -1,4 +1,3 @@
-<!-- eslint-disable no-template-curly-in-string -->
 <template>
     <div>
       <h1 class = "title"> Scoreboard </h1>

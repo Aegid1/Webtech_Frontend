@@ -12,7 +12,7 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
+
 import ContentView from '@/components/ContentView'
 export default {
   computed: {

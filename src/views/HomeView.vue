@@ -1,4 +1,3 @@
-<!-- eslint-disable no-template-curly-in-string -->
 <template>
   <div class="background">
     <div class="left-side">

@@ -145,7 +145,7 @@ export default {
   color: black;
   padding: 10px 20px;
   border: none;
-  bborder-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
   cursor: pointer;
 }
 </style>
