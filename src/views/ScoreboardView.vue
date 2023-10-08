@@ -161,10 +161,9 @@ margin-left: 2.5vh;
 width: 90%;
 height: 83%;
 z-index: 10;
-border-radius: 30px 30px 30px 30px;
+border-radius: 30px 30p"Aegidius.Haslauer@Student.HTW-Berlin.de"x 30px 30px;
 box-shadow: 15px -2px 50px #00000022;
 }
-
 .SCORES{
 margin-top: 20vh;
 margin-left: 5vh;

@@ -1,14 +1,11 @@
 <template>
-    <div class="container">
-      <div class="DivWrapper">
-        <div class="firstDiv"></div>
         <div class="secondDiv">
           <form>
             <h1>Register To Manage Your Shared Flat</h1>
             <div class ="WrapperLoginForm">
               <div class="loginForm">
                 <label for="exampleFirstname" class="Form-titles"><b><h2>Firstname</h2></b></label>
-                <input type="" class="InputFields" id="examplefirstName" required aria-describedby="emailHelp">
+                <input type="text" class="InputFields" id="examplefirstName" required aria-describedby="emailHelp">
                 <label for="exampleLastname" class="Form-titles"><b><h2>Lastname</h2></b></label>
                 <input type="String" class="InputFields" id="exampleLastname" required aria-describedby="emailHelp">
               </div>
@@ -36,9 +33,6 @@
             </div>
           </form>
         </div>
-        <div class="thirdDiv"></div>
-      </div>
-    </div>
   </template>
 
 <script>
@@ -115,20 +109,13 @@ export default {
 </script>
 
 <style scoped>
-  .firstDiv {
-    height: 130vh;
-    width: 15%;
-    z-index: 0;
-    border-radius: 0px 30px 0px 0px;
-    background-color: #20c9c1;
-    float: left;
-  }
 
   .secondDiv{
     width: 60%;
     height: 0px;
     z-index: 0;
     margin: 0 auto;
+    margin-bottom: 10px;
   }
 
   .thirdDiv{
