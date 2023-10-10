@@ -3,15 +3,16 @@
     <div class = "wrapperLoginForm">
 
 
-        <div v-if="createGroup === false && joinGroup === false">
+        <div v-if="createGroup === false && joinGroup === false && allowLocation === false">
             <div style='padding-top: 3%;'>
                 <h1> Do you want to join a group </h1>
                 <h1> or do you want to create a group? </h1>    
             </div>
 
             <div>
-                <span class = "button button:hover" style="margin-right: 20%; margin-top: 10%;" @click = "toggleJoinGroup()" > join group </span>
-                <span class = "button button:hover" @click = "toggleCreateGroup()" > create group </span>
+
+                <span class = "button button:hover" style="margin-right: 20%; left: 15%;" @click = "toggleJoinGroup()" > join group </span>
+                <span class = "button button:hover" style="right: 15%;" @click = "toggleCreateGroup()" > create group </span>
             </div>
         </div>
 
@@ -25,10 +26,23 @@
                 <input type = "text" class ="inputField" id="groupName"> 
             </div>
 
-            <span class = "navigation-button navigation-button:hover" style="left: 8%;" @click="navigationBack(createGroup)"> <b> previous </b> </span>
-            <span class = "navigation-button navigation-button:hover" style="right: 8%;"> <b> next </b> </span>
+            <i class = "bi bi-arrow-left navigation-button navigation-button:hover" style="left: 8%;" @click="navigationBack(createGroup)"></i>
+            <i class="bi bi-arrow-right navigation-button navigation-button:hover" style="right: 8%;" @click="toggleShareLocation(createGroup)"></i>
         </div>
 
+        
+        <div v-if="allowLocation === true && createGroup === false">
+            <div style='padding-top: 3%;'>
+                <h1> Do you want to share your location with us? </h1>
+            </div>
+            
+            <div> 
+                <span class = "button button:hover" style="margin-right: 20%; left: 15%;" @click = "toggleJoinGroup()" > no </span>
+                <span class = "button button:hover" style="right: 15%;" @click = "toggleCreateGroup()"> yes </span>
+            </div>
+            
+            <i class = "bi bi-arrow-left navigation-button navigation-button:hover" style="left: 8%;" @click="toggleShareLocation(createGroup)"></i>
+        </div>
 
 
     </div>
@@ -44,6 +58,7 @@ export default {
             createGroup: false,
             joinGroup: false,
             groupName: '',
+            allowLocation: false,
         }
     },
 
@@ -58,14 +73,22 @@ export default {
             this.joinGroup = true;
         },
 
+        toggleShareLocation(){
+            this.createGroup = false;
+            this.allowLocation = true;
+            return this.createGroup;
+        },
+
         navigationBack(condition){
 
             switch(condition){
                 case this.createGroup:
                     this.createGroup = !this.createGroup;
+                    return this.createGroup;
                 
                 case this.joinGroup:
                     this.joinGroup = !this.joinGroup;
+                    return this.joinGroup;
             }
     
         }
@@ -82,6 +105,8 @@ export default {
   border-radius: 5px;
   cursor: pointer;
   font-size: 220%;
+  position: absolute;
+  bottom: 15%;
 }
 
 .button:hover {
@@ -95,7 +120,7 @@ export default {
   color: #0a0a0a;
   border: none;
   border-radius: 5px;
-  font-size: 150%;
+  font-size: 280%;
   cursor: pointer;
   position: absolute;
   bottom: 5%;
