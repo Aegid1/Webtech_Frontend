@@ -19,7 +19,7 @@ describe('RegistrationView', () => {
       }
     })
 
-    wrapper.vm.navigateToLoginView()
+    wrapper.vm.navigateToRegistrationQuestions()
 
     expect(mockRouter.push).toHaveBeenCalledWith('/')
     expect(wrapper.findComponent(LoginView).exists()).toBe(true)

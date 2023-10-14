@@ -3,7 +3,7 @@
     <div class = "wrapperLoginForm">
 
 
-        <div v-if="createGroup === false && joinGroup === false && allowLocation === false">
+        <div v-if="createGroup === false && joinGroup === false && locationNavigation === false">
             <div style='padding-top: 3%;'>
                 <h1> Do you want to join a group </h1>
                 <h1> or do you want to create a group? </h1>    
@@ -31,17 +31,17 @@
         </div>
 
         
-        <div v-if="allowLocation === true && createGroup === false">
+        <div v-if="locationNavigation === true && createGroup === false">
             <div style='padding-top: 3%;'>
                 <h1> Do you want to share your location with us? </h1>
             </div>
             
             <div> 
-                <span class = "button button:hover" style="margin-right: 20%; left: 15%;" @click = "toggleJoinGroup()" > no </span>
-                <span class = "button button:hover" style="right: 15%;" @click = "toggleCreateGroup()"> yes </span>
+                <span class = "button button:hover" style="margin-right: 20%; left: 15%;" @click = "allowLocation(false)" > no </span>
+                <span class = "button button:hover" style="right: 15%;" @click = "allowLocation(true)"> yes </span>
             </div>
             
-            <i class = "bi bi-arrow-left navigation-button navigation-button:hover" style="left: 8%;" @click="toggleShareLocation(createGroup)"></i>
+            <i class = "bi bi-arrow-left navigation-button navigation-button:hover" style="left: 8%;" @click="navigationBack(locationNavigation)"></i>
         </div>
 
 
@@ -58,7 +58,8 @@ export default {
             createGroup: false,
             joinGroup: false,
             groupName: '',
-            allowLocation: false,
+            locationNavigation: false,
+            locationPermission: false,
         }
     },
 
@@ -75,8 +76,21 @@ export default {
 
         toggleShareLocation(){
             this.createGroup = false;
-            this.allowLocation = true;
+            this.locationNavigation = true;
             return this.createGroup;
+        },
+
+        allowLocation(allowance, id){
+            this.locationPermission = allowance;
+            navigateToHomeView(id);
+        },
+
+        navigateToHomeView (id) {
+            this.$router.push({ name: 'home', params: { id } })
+        },
+
+        createGroupInDatabase(){
+
         },
 
         navigationBack(condition){
@@ -89,6 +103,11 @@ export default {
                 case this.joinGroup:
                     this.joinGroup = !this.joinGroup;
                     return this.joinGroup;
+
+                case this.locationNavigation:
+                    this.locationNavigation = !this.locationNavigation;
+                    this.createGroup = !this.createGroup;
+                    return this.locationNavigation;
             }
     
         }
@@ -106,7 +125,7 @@ export default {
   cursor: pointer;
   font-size: 220%;
   position: absolute;
-  bottom: 15%;
+  bottom: 30%;
 }
 
 .button:hover {
@@ -123,7 +142,7 @@ export default {
   font-size: 280%;
   cursor: pointer;
   position: absolute;
-  bottom: 5%;
+  bottom: 2%;
 }
 
 .navigation-button:hover {

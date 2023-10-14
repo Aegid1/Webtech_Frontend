@@ -28,7 +28,7 @@
                 <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
                 <br>
                 <br>
-                <a @click="navigateToLoginView()">Already signed up? <b>Login </b></a>
+                <a @click="navigateToRegistrationQuestions()">Already signed up? <b>Login </b></a>
               </div>
             </div>
           </form>
@@ -39,32 +39,66 @@
 export default {
   name: 'RegistrationView',
 
+  data() {
+    return{
+      email: '',
+      confirmEmail: '',
+      password: '',
+      confirmPassword: '',
+      firstname: '',
+      lastname: ''
+
+    }
+  },
+
   methods: {
 
-    navigateToLoginView () {
-      this.$router.push('/')
+    navigateToRegistrationQuestions (email) {
+      const id = getUserIdByEmail(email);
+      this.$router.push({ name: 'RegistrationQuestionView', params: { id } })
+    },
+
+    navigateToLogin(){
+      this.$router.push('/');
+    },
+
+    getUserIdByEmail (email) {
+      const endpoint = 'http://localhost:8080/userEmail/' + email
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+
+      return fetch(endpoint, requestOptions)
+        .then(response => response.json())
+        .then(result => result)
+        .catch(error => {
+          console.log('the email doesnt exist', error)
+          alert('the email doesnt exist')
+        }
+        )
     },
 
     addUser () {
     // Benutzerdaten aus den Eingabefeldern abrufen
-      const email = document.getElementById('exampleInputEmail1').value
-      const confirmEmail = document.getElementById('confirmEmail').value
-      const password = document.getElementById('exampleInputPassword1').value
-      const confirmPassword = document.getElementById('confirmPassword').value
-      const firstname = document.getElementById('examplefirstName').value
-      const lastname = document.getElementById('exampleLastname').value
+      this.email = document.getElementById('exampleInputEmail1').value
+      this.confirmEmail = document.getElementById('confirmEmail').value
+      this.password = document.getElementById('exampleInputPassword1').value
+      this.confirmPassword = document.getElementById('confirmPassword').value
+      this.firstname = document.getElementById('examplefirstName').value
+      this.lastname = document.getElementById('exampleLastname').value
       // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
-      if (email === '' || confirmEmail === '' || password === '' || confirmPassword === '') {
+      if (this.email === '' || this.confirmEmail === '' || this.password === '' || this.confirmPassword === '') {
         alert('Please fill all fields')
         return
       }
 
-      if (email !== confirmEmail) {
+      if (this.email !== this.confirmEmail) {
         alert('The email addresses do not match')
         return
       }
 
-      if (password !== confirmPassword) {
+      if (this.password !== this.confirmPassword) {
         alert('The passwords do not match')
         return
       }
@@ -91,7 +125,7 @@ export default {
             // Die Benutzerregistrierung war erfolgreich
             // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
             console.log('Benutzer wurde erfolgreich erstellt')
-            this.navigateToLoginView()
+            this.navigateToRegistrationQuestions()
           } else {
             // Die Benutzerregistrierung ist fehlgeschlagen
             // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
