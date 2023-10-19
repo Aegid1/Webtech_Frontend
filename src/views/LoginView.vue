@@ -79,7 +79,7 @@ export default {
           if (data.token !== undefined) {
             this.convertTokenToId(data.token)
               .then(id => {
-                console.log(id)
+                
                 this.navigateToHomeView(id)
               })
               .catch(error => {
@@ -111,13 +111,13 @@ export default {
 
     async convertTokenToId (token) {
       try {
+
         const decodedToken = jwt_decode(token)
-        console.log(decodedToken)
         const email = decodedToken.sub
         const response = await this.getUserIdByEmail(email)
-        console.log(response)
-        console.log(response.Id)
+
         return response.Id
+
       } catch (error) {
         console.log('Error', error)
       }

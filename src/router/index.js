@@ -40,7 +40,7 @@ const routes = [
     component: DarkModeView
   },
   {
-    path: '/RegistrationQuestion',
+    path: '/RegistrationQuestion/:id',
     name: 'RegistrationQuestionView',
     component: RegistrationQuestionView
   }

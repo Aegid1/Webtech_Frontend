@@ -28,7 +28,7 @@
                 <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
                 <br>
                 <br>
-                <a @click="navigateToRegistrationQuestions()">Already signed up? <b>Login </b></a>
+                <a @click="navigateToLogin()">Already signed up? <b>Login </b></a>
               </div>
             </div>
           </form>
@@ -121,11 +121,12 @@ export default {
       fetch('http://localhost:8080/register', userData)
         .then(response => response.json())
         .then(response => {
+//hier sollte die Email aus dem Response kommen
           if (response.ok) {
             // Die Benutzerregistrierung war erfolgreich
             // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
             console.log('Benutzer wurde erfolgreich erstellt')
-            this.navigateToRegistrationQuestions()
+            this.navigateToRegistrationQuestions(email)
           } else {
             // Die Benutzerregistrierung ist fehlgeschlagen
             // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus

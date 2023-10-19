@@ -38,7 +38,7 @@
             
             <div> 
                 <span class = "button button:hover" style="margin-right: 20%; left: 15%;" @click = "allowLocation(false)" > no </span>
-                <span class = "button button:hover" style="right: 15%;" @click = "allowLocation(true)"> yes </span>
+                <span class = "button button:hover" style="right: 15%;" @click = "allowLocation(true, )"> yes </span>
             </div>
             
             <i class = "bi bi-arrow-left navigation-button navigation-button:hover" style="left: 8%;" @click="navigationBack(locationNavigation)"></i>
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { routeLocationKey } from 'vue-router';
+
 export default {
     name: 'RegistrationQuestionView',
 
@@ -60,6 +62,7 @@ export default {
             groupName: '',
             locationNavigation: false,
             locationPermission: false,
+            groupName: ''
         }
     },
 
@@ -82,7 +85,7 @@ export default {
 
         allowLocation(allowance, id){
             this.locationPermission = allowance;
-            navigateToHomeView(id);
+            this.createGroupInDatabase();
         },
 
         navigateToHomeView (id) {
@@ -90,6 +93,44 @@ export default {
         },
 
         createGroupInDatabase(){
+
+            const group = {
+
+                name: this.groupName,
+                countOfMembers: 1,
+                profilePicture: '',
+                scoreSum: '0',
+                locationPermission,
+                
+                
+            }
+
+            const groupData = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: json.stringify(group)
+            }
+
+            fetch('http://localhost:8080/createGroup' + this.$route.params.id, groupData)
+            .then(response => response.json())
+            .then(response => {
+                if (response.ok) {
+
+                console.log('Benutzer wurde erfolgreich erstellt')
+                this.navigateToHomeView(this.$route.params.id)
+                
+                } else {
+
+                console.log('Fehler bei der Benutzererstellung')
+                //Hier eine Meldung für den Nutzer einbauen, dass etwas fehlgeschlagen ist
+                }
+            })
+            .catch(error => {
+                console.error('Fehler:', error)
+            })
+
 
         },
 
