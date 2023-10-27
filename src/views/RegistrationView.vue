@@ -4,8 +4,8 @@
             <h1>Register To Manage Your Shared Flat</h1>
             <div class ="WrapperLoginForm">
               <div class="loginForm">
-                <label for="exampleFirstname" class="Form-titles"><b><h2>Firstname</h2></b></label>
-                <input type="text" class="InputFields" id="examplefirstName" required aria-describedby="emailHelp">
+                <label for="exampleFirstName" class="Form-titles"><b><h2>Firstname</h2></b></label>
+                <input type="text" class="InputFields" id="exampleFirstName" required aria-describedby="emailHelp">
                 <label for="exampleLastname" class="Form-titles"><b><h2>Lastname</h2></b></label>
                 <input type="String" class="InputFields" id="exampleLastname" required aria-describedby="emailHelp">
               </div>
@@ -25,7 +25,7 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
               <div class = LoginButtonDiv>
-                <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
+                <button type="submit" class="LoginButton" @click="addUser()"><b>Register</b></button>
                 <br>
                 <br>
                 <a @click="navigateToLogin()">Already signed up? <b>Login </b></a>
@@ -53,8 +53,7 @@ export default {
 
   methods: {
 
-    navigateToRegistrationQuestions (email) {
-      const id = getUserIdByEmail(email);
+    navigateToRegistrationQuestions (id) {
       this.$router.push({ name: 'RegistrationQuestionView', params: { id } })
     },
 
@@ -62,16 +61,16 @@ export default {
       this.$router.push('/');
     },
 
-    getUserIdByEmail (email) {
+    async getUserIdByEmail (email) {
       const endpoint = 'http://localhost:8080/userEmail/' + email
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
       }
 
-      return fetch(endpoint, requestOptions)
+      await fetch(endpoint, requestOptions)
         .then(response => response.json())
-        .then(result => result)
+        .then(result => { return result })
         .catch(error => {
           console.log('the email doesnt exist', error)
           alert('the email doesnt exist')
@@ -79,13 +78,13 @@ export default {
         )
     },
 
-    addUser () {
+    async addUser () {
     // Benutzerdaten aus den Eingabefeldern abrufen
       this.email = document.getElementById('exampleInputEmail1').value
       this.confirmEmail = document.getElementById('confirmEmail').value
       this.password = document.getElementById('exampleInputPassword1').value
       this.confirmPassword = document.getElementById('confirmPassword').value
-      this.firstname = document.getElementById('examplefirstName').value
+      this.firstname = document.getElementById('exampleFirstName').value
       this.lastname = document.getElementById('exampleLastname').value
       // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
       if (this.email === '' || this.confirmEmail === '' || this.password === '' || this.confirmPassword === '') {
@@ -104,10 +103,10 @@ export default {
       }
 
       const user = {
-        email: email,
-        password: password,
-        firstname: firstname,
-        lastname: lastname
+        email: this.email,
+        password: this.password,
+        firstname: this.firstname,
+        lastname: this.lastname
       }
 
       const userData = {
@@ -117,27 +116,24 @@ export default {
         },
         body: JSON.stringify(user)
       }
+      // I dont really get why fetch(...).then().then() doesnt work as I want -> therefore the different approach
+      try{
+        const response = await fetch('http://localhost:8080/register', userData)
+        if(response.ok){
+          console.log("Hier hat es funktioniert")
+        }
+        else{
+          console.log("Hat nicht funktioniert")
+        }
+        const id = await this.getUserIdByEmail(this.email)
+        console.log("Ich war hier")
+        this.navigateToRegistrationQuestions(id)
+      }
+      catch(error){
+        console.error('Fehler:', error)
 
-      fetch('http://localhost:8080/register', userData)
-        .then(response => response.json())
-        .then(response => {
-//hier sollte die Email aus dem Response kommen
-          if (response.ok) {
-            // Die Benutzerregistrierung war erfolgreich
-            // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
-            console.log('Benutzer wurde erfolgreich erstellt')
-            this.navigateToRegistrationQuestions(email)
-          } else {
-            // Die Benutzerregistrierung ist fehlgeschlagen
-            // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
-            console.log('Fehler bei der Benutzererstellung')
-          }
-        })
-        .catch(error => {
-          console.error('Fehler:', error)
-        })
-        // Hier kannst du den Code hinzufügen, um den Benutzer zu speichern oder weiterzuverarbeiten
-      console.log('Neuer Benutzer:', user)
+      }
+
     }
   }
 }

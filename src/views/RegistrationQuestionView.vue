@@ -95,13 +95,12 @@ export default {
         createGroupInDatabase(){
 
             const group = {
-
-                name: this.groupName,
+                
                 countOfMembers: 1,
+                name: this.groupName,
                 profilePicture: '',
                 scoreSum: '0',
                 locationPermission,
-                
                 
             }
 
