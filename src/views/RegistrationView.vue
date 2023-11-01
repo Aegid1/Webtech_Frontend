@@ -63,15 +63,15 @@ export default {
     },
 
     async addUser () {
-      event.preventDefault() // Verhindert das Standardverhalten des Formulars
-    // Benutzerdaten aus den Eingabefeldern abrufen
+      event.preventDefault()
+
       this.email = document.getElementById('exampleInputEmail1').value
       this.confirmEmail = document.getElementById('confirmEmail').value
       this.password = document.getElementById('exampleInputPassword1').value
       this.confirmPassword = document.getElementById('confirmPassword').value
       this.firstname = document.getElementById('exampleFirstName').value
       this.lastname = document.getElementById('exampleLastname').value
-      // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
+
       if (this.email === '' || this.confirmEmail === '' || this.password === '' || this.confirmPassword === '') {
         alert('Please fill all fields')
         return
@@ -84,6 +84,11 @@ export default {
 
       if (this.password !== this.confirmPassword) {
         alert('The passwords do not match')
+        return
+      }
+
+      if(this.email.length < 8) {
+        alert("Your password is too short")
         return
       }
 
@@ -109,19 +114,17 @@ export default {
 
       fetch('http://localhost:8080/register', userData)
         .then(response => {
-          if(response.ok){
+          if(!response.ok){
             console.log("Failed with HTTP code" + response.status)
           }
           return response
         })
         .then(result => result.json())
         .then(() => {
-          
-          console.log("test1")
-            
+                      
           fetch('http://localhost:8080/userEmail/' + this.email, emailRequestOptions)
             .then(response2 => response2.json())
-            .then(data2 => this.navigateToRegistrationQuestions(data2))
+            .then(data2 => this.navigateToRegistrationQuestions(data2.Id))
             .catch(error => {
               console.error('error:', error)
             })

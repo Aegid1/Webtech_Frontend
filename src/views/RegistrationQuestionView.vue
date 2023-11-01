@@ -38,7 +38,7 @@
             
             <div> 
                 <span class = "button button:hover" style="margin-right: 20%; left: 15%;" @click = "allowLocation(false)" > no </span>
-                <span class = "button button:hover" style="right: 15%;" @click = "allowLocation(true, )"> yes </span>
+                <span class = "button button:hover" style="right: 15%;" @click = "allowLocation(true)"> yes </span>
             </div>
             
             <i class = "bi bi-arrow-left navigation-button navigation-button:hover" style="left: 8%;" @click="navigationBack(locationNavigation)"></i>
@@ -62,7 +62,6 @@ export default {
             groupName: '',
             locationNavigation: false,
             locationPermission: false,
-            groupName: ''
         }
     },
 
@@ -80,10 +79,11 @@ export default {
         toggleShareLocation(){
             this.createGroup = false;
             this.locationNavigation = true;
+            this.groupName = document.getElementById('groupName').value
             return this.createGroup;
         },
 
-        allowLocation(allowance, id){
+        allowLocation(allowance){
             this.locationPermission = allowance;
             this.createGroupInDatabase();
         },
@@ -93,15 +93,13 @@ export default {
         },
 
         createGroupInDatabase(){
-
+            
             const group = {
-                
-                countOfMembers: 1,
                 name: this.groupName,
+                countOfMembers: "1",
                 profilePicture: '',
                 scoreSum: '0',
-                locationPermission,
-                
+                locationPermission: false,    
             }
 
             const groupData = {
@@ -109,22 +107,27 @@ export default {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: json.stringify(group)
+                body: JSON.stringify(group)
             }
 
-            fetch('http://localhost:8080/createGroup' + this.$route.params.id, groupData)
-            .then(response => response.json())
+            console.log(groupData)
+
+            fetch('http://localhost:8080/createGroup/' + this.$route.params.id, groupData)
             .then(response => {
-                if (response.ok) {
+                if(!response.ok){
+                    
+                    this.createGroup = false
+                    this.joinGroup = false
+                    this.locationNavigation = false
+                    this.locationPermission = false
+                    alert("Your group couldnt be created, try again")
 
-                console.log('Benutzer wurde erfolgreich erstellt')
-                this.navigateToHomeView(this.$route.params.id)
-                
-                } else {
-
-                console.log('Fehler bei der Benutzererstellung')
-                //Hier eine Meldung für den Nutzer einbauen, dass etwas fehlgeschlagen ist
                 }
+                else{
+                    this.navigateToHomeView(this.$route.params.id)
+                }
+
+                return response
             })
             .catch(error => {
                 console.error('Fehler:', error)
