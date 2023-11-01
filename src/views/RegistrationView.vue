@@ -46,7 +46,8 @@ export default {
       password: '',
       confirmPassword: '',
       firstname: '',
-      lastname: ''
+      lastname: '',
+      id: ''
 
     }
   },
@@ -61,24 +62,8 @@ export default {
       this.$router.push('/');
     },
 
-    async getUserIdByEmail (email) {
-      const endpoint = 'http://localhost:8080/userEmail/' + email
-      const requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      }
-
-      await fetch(endpoint, requestOptions)
-        .then(response => response.json())
-        .then(result => { return result })
-        .catch(error => {
-          console.log('the email doesnt exist', error)
-          alert('the email doesnt exist')
-        }
-        )
-    },
-
     async addUser () {
+      event.preventDefault() // Verhindert das Standardverhalten des Formulars
     // Benutzerdaten aus den Eingabefeldern abrufen
       this.email = document.getElementById('exampleInputEmail1').value
       this.confirmEmail = document.getElementById('confirmEmail').value
@@ -116,23 +101,36 @@ export default {
         },
         body: JSON.stringify(user)
       }
-      // I dont really get why fetch(...).then().then() doesnt work as I want -> therefore the different approach
-      try{
-        const response = await fetch('http://localhost:8080/register', userData)
-        if(response.ok){
-          console.log("Hier hat es funktioniert")
-        }
-        else{
-          console.log("Hat nicht funktioniert")
-        }
-        const id = await this.getUserIdByEmail(this.email)
-        console.log("Ich war hier")
-        this.navigateToRegistrationQuestions(id)
-      }
-      catch(error){
-        console.error('Fehler:', error)
 
+      const emailRequestOptions = {
+        method: 'GET',
+        redirect: 'follow'
       }
+
+      fetch('http://localhost:8080/register', userData)
+        .then(response => {
+          if(response.ok){
+            console.log("Failed with HTTP code" + response.status)
+          }
+          return response
+        })
+        .then(result => result.json())
+        .then(() => {
+          
+          console.log("test1")
+            
+          fetch('http://localhost:8080/userEmail/' + this.email, emailRequestOptions)
+            .then(response2 => response2.json())
+            .then(data2 => this.navigateToRegistrationQuestions(data2))
+            .catch(error => {
+              console.error('error:', error)
+            })
+
+
+        })
+        .catch(error => {
+          console.error('error:', error)
+        })
 
     }
   }

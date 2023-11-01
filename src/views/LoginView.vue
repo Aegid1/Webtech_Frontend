@@ -45,6 +45,7 @@ export default {
   name: 'LoginView',
 
   methods: {
+
     login (event) {
       event.preventDefault() // Verhindert das Standardverhalten des Formulars
 
@@ -148,6 +149,7 @@ export default {
 
   },
   mounted () {
+
     const darkMode = localStorage.getItem('darkMode')
     if (darkMode === 'true') {
       this.isDarkMode = true
