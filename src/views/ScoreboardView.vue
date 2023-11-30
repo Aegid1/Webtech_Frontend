@@ -114,7 +114,7 @@ export default {
       console.log(this.sortedGroup)
     }
   },
-  mounted () {
+  onMounted () {
     const userId = this.$route.params.id
     this.loadScores(userId)
   }

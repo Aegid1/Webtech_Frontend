@@ -258,7 +258,7 @@ export default {
     }
   },
 
-  mounted () {
+  onMounted () {
     const userId = this.$route.params.id
     this.loadTasks(userId)
   }

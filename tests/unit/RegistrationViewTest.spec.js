@@ -1,10 +1,10 @@
 // import { shallowMount } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import RegistrationView from '@/views/RegistrationView.vue'
-import LoginView from '@/views/LoginView.vue'
+import RegistrationQuestionView from '@/views/RegistrationQuestionView.vue'
 
 describe('RegistrationView', () => {
-  it('should render LoginView when navigateToLoginView() is called', () => {
+  it('should render RegistratioQuestion when navigateToRegistrationQuestions() is called', () => {
     const mockRouter = {
       push: jest.fn()
     }
@@ -21,7 +21,8 @@ describe('RegistrationView', () => {
 
     wrapper.vm.navigateToRegistrationQuestions()
 
-    expect(mockRouter.push).toHaveBeenCalledWith('/')
-    expect(wrapper.findComponent(LoginView).exists()).toBe(true)
+    expect(mockRouter.push).toHaveBeenCalledWith({"name": "RegistrationQuestionView", "params": {"id": undefined}})
+    expect(wrapper.findComponent(RegistrationQuestionView).exists())
+    
   })
 })
