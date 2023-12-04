@@ -1,39 +1,39 @@
 <template>
-        <div class="secondDiv">
-          <form>
-            <h1>Register To Manage Your Shared Flat</h1>
-            <div class ="WrapperLoginForm">
-              <div class="loginForm">
-                <label for="exampleFirstName" class="Form-titles"><b><h2>Firstname</h2></b></label>
-                <input type="text" class="InputFields" id="exampleFirstName" required aria-describedby="emailHelp">
-                <label for="exampleLastname" class="Form-titles"><b><h2>Lastname</h2></b></label>
-                <input type="String" class="InputFields" id="exampleLastname" required aria-describedby="emailHelp">
-              </div>
-              <div class="loginForm">
-                <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
-                <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
-                <label for="exampleInputEmail1" class="Form-titles"><b><h2>Confirm Email Address</h2></b></label>
-                <input type="email" class="InputFields" id="confirmEmail" required aria-describedby="emailHelp">
-              </div>
-              <div class="loginForm">
-                <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
-                <input type="password" class="InputFields" id="exampleInputPassword1" minlength="8" required>
-                <label for="exampleInputPassword1" class="Form-titles"><b><h2>Confirm Password</h2></b></label>
-                <input type="password" class="InputFields" id="confirmPassword" required>
-              </div>
-              <div class=Checkbox>
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
-              <div class = LoginButtonDiv>
-                <button type="submit" class="LoginButton" @click="addUser()"><b>Register</b></button>
-                <br>
-                <br>
-                <a @click="navigateToLogin()">Already signed up? <b>Login </b></a>
-              </div>
-            </div>
-          </form>
+  <div class="secondDiv">
+    <form>
+      <h1>Register To Manage Your Shared Flat</h1>
+      <div class ="WrapperLoginForm">
+        <div class="loginForm">
+          <label for="exampleFirstName" class="Form-titles"><b><h2>Firstname</h2></b></label>
+          <input type="text" class="InputFields" id="exampleFirstName" required aria-describedby="emailHelp">
+          <label for="exampleLastname" class="Form-titles"><b><h2>Lastname</h2></b></label>
+          <input type="String" class="InputFields" id="exampleLastname" required aria-describedby="emailHelp">
         </div>
-  </template>
+        <div class="loginForm">
+          <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
+          <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
+          <label for="exampleInputEmail1" class="Form-titles"><b><h2>Confirm Email Address</h2></b></label>
+          <input type="email" class="InputFields" id="confirmEmail" required aria-describedby="emailHelp">
+        </div>
+        <div class="loginForm">
+          <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
+          <input type="password" class="InputFields" id="exampleInputPassword1" minlength="8" required>
+          <label for="exampleInputPassword1" class="Form-titles"><b><h2>Confirm Password</h2></b></label>
+          <input type="password" class="InputFields" id="confirmPassword" required>
+        </div>
+        <div class=Checkbox>
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
+        <div class = LoginButtonDiv>
+          <button type="submit" class="LoginButton" @click="addUser()"><b>Register</b></button>
+          <br>
+          <br>
+          <a @click="navigateToLogin()">Already signed up? <b>Login </b></a>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
 
 <script>
 export default {

@@ -1,43 +1,40 @@
 <template>
-  <div class="container">
-    <div class="DivWrapper">
-      <div class="firstDiv"></div>
-      <div class="secondDiv">
-        <form @submit.prevent="login">
-          <h1>Login into your Home</h1>
-          <div class="WrapperLoginForm">
-            <div class="loginForm">
-              <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
-              <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="loginForm">
-              <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
-              <input type="password" class="InputFields" id="exampleInputPassword1">
-            </div>
-            <div class="ForgotPassword">
-              <a href="http://localhost:3000/login"><b>Passwort vergessen?</b></a>
-              <br>
-            </div>
-            <div class="Checkbox">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label>
-            </div>
-            <div class="LoginButtonDiv">
-              <button type="submit" class="LoginButton"><b>Login</b></button>
-              <br>
-              <br>
-              <a @click="navigateToRegistrationView">need to sign up? <b>Register</b></a>
-            </div>
+  <div id = "loader"></div>
+  <div>
+    <div class="secondDiv">
+      <div @submit.prevent="login" >
+        <h1>Login into your Home</h1>
+        <div class="WrapperLoginForm">
+          <div class="loginForm">
+            <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
+            <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
-        </form>
-        <!-- <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" -->
-        <!-- <button @click="toggleDarkMode">Toggle Dark Mode</button> -->
+          <div class="loginForm">
+            <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
+            <input type="password" class="InputFields" id="exampleInputPassword1">
+          </div>
+          <div class="ForgotPassword">
+            <a href="http://localhost:3000/login"><b>Passwort vergessen?</b></a>
+            <br>
+          </div>
+          <div class="Checkbox">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label>
+          </div>
+          <div class="LoginButtonDiv">
+            <button type="submit" class="LoginButton" @click="login()"><b>Login</b></button>
+            <br>
+            <br>
+            <a @click="navigateToRegistrationView">need to sign up? <b>Register</b></a>
+          </div>
+        </div>
       </div>
-      <div class="thirdDiv"></div>
+      <!-- <DarkModeView :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" -->
+      <!-- <button @click="toggleDarkMode">Toggle Dark Mode</button> -->
     </div>
   </div>
-</template>
+</template> 
 
 <script>
 import jwt_decode from 'jwt-decode'
@@ -46,7 +43,7 @@ export default {
 
   methods: {
 
-    login (event) {
+    login () {
       event.preventDefault() // Verhindert das Standardverhalten des Formulars
 
       // Benutzerdaten aus den Eingabefeldern abrufen
@@ -58,6 +55,9 @@ export default {
         alert('Bitte füllen Sie alle Felder aus')
         return
       }
+
+      const loader = document.getElementById("loader");
+      loader.classList.add('lds-dual-ring', 'background');
 
       // Benutzerdaten an das Backend senden
       const user = {
@@ -75,23 +75,25 @@ export default {
         .then(response => response.json())
         .then(data => {
           // Hier kannst du den Response vom Backend verarbeiten
-          console.log(data)
           // Beispiel: Weiterleitung zur Home-Ansicht, wenn der Login erfolgreich war
           if (data.token !== undefined) {
             this.convertTokenToId(data.token)
               .then(id => {
-                
+
+                loader.classList.remove('lds-dual-ring', 'background');
                 this.navigateToHomeView(id)
               })
               .catch(error => {
                 console.log('error', error)
               })
           } else {
+            loader.classList.remove('lds-dual-ring', 'background');
             alert('Login fehlgeschlagen')
           }
         })
         .catch(error => {
           // Bei einem Fehler während der Anfrage oder Verarbeitung
+          loader.classList.remove('lds-dual-ring', 'background');
           console.error('Fehler:', error)
         })
     },
@@ -160,40 +162,64 @@ export default {
 
 </script>
 
-  <style scoped>
+<style scoped>
 
-  .firstDiv {
-    height: 100vh;
-    width: 15%;
-    z-index: 0;
-    border-radius: 0px 30px 0px 0px;
-    background-color: #20c9c1;
-    float: left;
+.lds-dual-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: #000000;
+}
+.lds-dual-ring:after {
+  content: " ";
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #000000;
+  border-color: #918585 transparent #918585 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+  z-index: 1;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
   }
-
+  100% {
+    transform: rotate(360deg);
+  }
+}
+  .background{
+    position: fixed;
+    background-color: #f8efef;
+    opacity: 70%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
   .secondDiv{
-    width: 60%;
-    height: 0px;
+    /* background-color: #f8efef; */
+    position: relative;
     z-index: 0;
+    width: 60%;
     margin: 0 auto;
   }
 
-  .thirdDiv{
-    width: 15%;
-    height: 100vh;
-    z-index: 0;
-    border-radius: 30px 0px 0px 0px;
-    background-color: #20c9c1;
-    float: right;
-  }
-
   .WrapperLoginForm {
+    position: relative;
+    z-index: 0;
     background-color: #20c9c1;
     padding-top: 30px;
     border-radius: 30px 30px 30px 30px;
   }
 
   .form-text{
+    z-index: 0;
     margin: 10px;
     text-align: left;
     text-align: left;
@@ -204,6 +230,7 @@ export default {
   }
 
   .loginForm{
+    z-index: 0;
     text-align: left;
     padding-left: 20px;
   }
